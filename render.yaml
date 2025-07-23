@@ -1,0 +1,31 @@
+# render.yaml
+# Configuración explícita para el despliegue en Render.
+
+services:
+  # Define un servicio de tipo "Web Service"
+  - type: web
+    name: lora-cafe # (Usa minúsculas y guiones, es mejor para URLs)
+    runtime: java
+    plan: free
+
+    # Comando para construir el proyecto usando el Maven Wrapper.
+    # -DskipTests acelera el despliegue al no ejecutar las pruebas.
+    buildCommand: "./mvnw clean install -DskipTests"
+
+    # Comando para ejecutar la aplicación compilada (el archivo .jar).
+    # Este es el método estándar para producción.
+    startCommand: "java -jar target/loracafe-0.0.1-SNAPSHOT.jar"
+
+    # Define las variables de entorno que se crearán en Render.
+    # Debes rellenar sus valores en el Dashboard de Render.
+    envVars:
+      - key: MYSQL_URL
+        fromSync: false
+      - key: MYSQLUSER
+        fromSync: false
+      - key: MYSQLPASSWORD
+        fromSync: false
+      # Render asigna un puerto dinámicamente, pero se expone en el 10000.
+      # Esta variable le dice a tu servidor Tomcat que escuche en ese puerto.
+      - key: SERVER_PORT
+        value: 10000

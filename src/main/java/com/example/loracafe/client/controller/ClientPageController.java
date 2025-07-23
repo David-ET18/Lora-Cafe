@@ -75,7 +75,6 @@ public class ClientPageController {
 
     @GetMapping("/acceso-denegado")
     public String showAccessDeniedPage(Model model) {
-        // Añadimos los detalles del usuario para que el navbar se muestre correctamente
         addUserDetailsToModel(model); 
         return "Cliente/403";
     }

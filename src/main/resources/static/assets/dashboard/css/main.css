@@ -1,8 +1,3 @@
-/* ====================================================== */
-/* ===         Estilo Principal del Dashboard         === */
-/* ====================================================== */
-
-/* --- Variables Globales de Diseño --- */
 :root {
     --sidebar-width: 260px;
     --header-height: 70px;
@@ -24,7 +19,6 @@
     --card-bg: #ffffff;
 }
 
-/* --- Reset Básico y Estilos Globales --- */
 * {
     margin: 0;
     padding: 0;
@@ -44,7 +38,6 @@ body {
     min-height: 100vh;
 }
 
-/* --- Estilos de la Barra Lateral (Sidebar) --- */
 .sidebar {
     width: var(--sidebar-width);
     background: linear-gradient(180deg, var(--primary-dark), var(--primary-color));
@@ -79,7 +72,6 @@ body {
     font-size: 1.8rem;
 }
 
-/* --- Estilos del Menú Lateral (CORREGIDOS) --- */
 .menu-items {
     padding: 25px 0;
 }
@@ -121,7 +113,6 @@ body {
     font-weight: 500;
 }
 
-/* --- Estilos del Contenido Principal --- */
 .main-content {
     flex: 1;
     margin-left: var(--sidebar-width);
@@ -268,7 +259,6 @@ body {
     border-radius: 2px;
 }
 
-/* --- Estilos de Botones --- */
 .btn {
     padding: 12px 24px;
     border-radius: var(--radius);
@@ -293,7 +283,6 @@ body {
     box-shadow: 0 6px 12px rgba(93, 64, 55, 0.25);
 }
 
-/* --- Estilos de Tarjetas (Cards) --- */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -358,7 +347,6 @@ body {
     font-size: 1rem;
 }
 
-/* --- Estilos de Tablas --- */
 .card {
     background: var(--card-bg);
     border-radius: var(--radius);
@@ -482,7 +470,6 @@ tr:hover {
     transform: translateY(-2px);
 }
 
-/* --- Estilos Específicos para Tablas del Dashboard --- */
 #products-table .product-image {
     width: 80px;
     height: 80px;
@@ -517,7 +504,6 @@ tr:hover {
     text-align: center;
 }
 
-/* --- Estilos de Formularios y Modales --- */
 .form-group {
     margin-bottom: 25px;
 }
@@ -624,7 +610,6 @@ textarea.form-control {
     color: var(--danger-color);
 }
 
-/* --- Estilos de Gráficos (Charts) --- */
 .chart-container {
     background: var(--card-bg);
     border-radius: var(--radius);
@@ -645,7 +630,6 @@ textarea.form-control {
     position: relative;
 }
 
-/* --- Estilos de Filtros --- */
 .filters {
     display: flex;
     gap: 15px;
@@ -660,23 +644,14 @@ textarea.form-control {
     background: #f9f9f9;
 }
 
-/* =================================== */
-/* Estilos para Controles de Paginación*/
-/* =================================== */
-
 .pagination-controls {
     display: flex;
     justify-content: center;
-    /* Alinea los controles a la derecha de la tarjeta */
     align-items: center;
     gap: 10px;
-    /* Espacio entre los elementos */
     padding: 20px 30px;
-    /* Espaciado interno */
     border-top: 1px solid #eee;
-    /* Línea separadora */
     margin-top: -35px;
-    /* Compensa el margin-bottom de la .card para que se pegue abajo */
 }
 
 .pagination-controls button {
@@ -708,16 +683,10 @@ textarea.form-control {
     font-weight: 500;
 }
 
-/* =================================== */
-/* Estilos para la Página de Reportes  */
-/* =================================== */
-
 .report-card-grid {
     display: grid;
-    /* Crea columnas que se adaptan al espacio, con un mínimo de 300px */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    /* Espacio entre las tarjetas */
 }
 
 .report-card {
@@ -727,8 +696,6 @@ textarea.form-control {
     box-shadow: var(--shadow-lg);
     text-align: center;
     transition: all 0.3s ease;
-
-    /* Usamos Flexbox para alinear el contenido verticalmente */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -736,7 +703,6 @@ textarea.form-control {
 
 .report-card:hover {
     transform: translateY(-5px);
-    /* Efecto de "levantar" la tarjeta */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -744,7 +710,6 @@ textarea.form-control {
     font-size: 3rem;
     color: var(--primary-color);
     margin-bottom: 20px;
-    /* Contenedor para el icono */
     width: 80px;
     height: 80px;
     background-color: #f5f7fa;
@@ -765,17 +730,13 @@ textarea.form-control {
     color: #777;
     margin-bottom: 25px;
     flex-grow: 1;
-    /* Hace que el párrafo ocupe el espacio disponible, empujando el botón hacia abajo */
 }
 
 .report-card .btn {
     width: 80%;
-    /* Ancho del botón dentro de la tarjeta */
     margin-top: auto;
-    /* Empuja el botón al final de la tarjeta */
 }
 
-/* --- Estilos para el Dropdown de Notificaciones --- */
 .notification-bell {
     position: relative;
 }

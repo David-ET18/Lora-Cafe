@@ -1,12 +1,7 @@
-// products.js
-
 const API_URL = '/api/dashboard/products';
 const CATEGORIES_API_URL = '/api/dashboard/categories';
 let categoriasCache = [];
 
-/**
- * Obtiene el token y el header CSRF desde las metaetiquetas del HTML.
- */
 function getCsrfToken() {
     const token = document.querySelector("meta[name='_csrf']")?.content;
     const header = document.querySelector("meta[name='_csrf_header']")?.content;
@@ -21,16 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/**
- * Carga y muestra los productos en la tabla, consumiendo el DTO del backend.
- */
+
 function populateProductsTable(searchTerm = '') {
     const tableBody = document.querySelector('#products-table tbody');
     tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Cargando productos...</td></tr>';
 
-    // La búsqueda requiere un endpoint específico, que por ahora no implementaremos en el DTO.
-    // Para simplificar, la búsqueda se hará sobre la lista completa.
-    const url = API_URL; // Siempre pedimos la lista completa
+    const url = API_URL;
 
     fetch(url)
         .then(res => {
@@ -39,8 +30,7 @@ function populateProductsTable(searchTerm = '') {
         })
         .then(products => {
             tableBody.innerHTML = '';
-            
-            // Filtramos en el frontend si hay un término de búsqueda
+
             const filteredProducts = searchTerm
                 ? products.filter(p => p.nombre.toLowerCase().includes(searchTerm.toLowerCase()))
                 : products;
@@ -49,10 +39,9 @@ function populateProductsTable(searchTerm = '') {
                 tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No se encontraron productos.</td></tr>';
                 return;
             }
-            
+
             filteredProducts.forEach(product => {
                 const row = tableBody.insertRow();
-                // ¡¡CAMBIO IMPORTANTE!! Usamos los campos del DTO.
                 row.innerHTML = `
                     <td><img src="${product.imagenUrl || 'https://via.placeholder.com/80'}" alt="${product.nombre}" class="product-image"></td>
                     <td>${product.nombre}</td>
@@ -77,8 +66,7 @@ function attachActionListeners() {
     document.querySelectorAll('#products-table .action-btn.edit').forEach(btn => {
         btn.addEventListener('click', async (e) => {
             const id = e.currentTarget.dataset.id;
-            // Para editar, necesitamos la entidad completa, no el DTO.
-            const response = await fetch(`${API_URL}/${id}`); // Usamos el endpoint que devuelve la entidad
+            const response = await fetch(`${API_URL}/${id}`);
             if (response.ok) {
                 const product = await response.json();
                 showProductModal(product);
@@ -133,7 +121,7 @@ async function showProductModal(product = null) {
             </div>
             <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" id="save-product-btn">${isEditMode ? 'Actualizar' : 'Guardar'}</button></div>
         </div></div>`;
-    
+
     document.getElementById('modal-container').innerHTML = modalContent;
     document.getElementById('save-product-btn').addEventListener('click', saveProduct);
 }
@@ -177,16 +165,16 @@ function saveProduct() {
         headers: { 'Content-Type': 'application/json', [csrf.header]: csrf.token },
         body: JSON.stringify(productData)
     })
-    .then(response => {
-        if (!response.ok) throw new Error(`Error al guardar.`);
-        return response.json();
-    })
-    .then(() => {
-        alert(`Producto ${isEditMode ? 'actualizado' : 'creado'} con éxito.`);
-        closeModal();
-        populateProductsTable();
-    })
-    .catch(error => alert(error.message));
+        .then(response => {
+            if (!response.ok) throw new Error(`Error al guardar.`);
+            return response.json();
+        })
+        .then(() => {
+            alert(`Producto ${isEditMode ? 'actualizado' : 'creado'} con éxito.`);
+            closeModal();
+            populateProductsTable();
+        })
+        .catch(error => alert(error.message));
 }
 
 function closeModal() {

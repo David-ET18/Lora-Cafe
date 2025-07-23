@@ -44,7 +44,6 @@ public class Promocion {
     @Column(nullable = false)
     private boolean activa = true;
     
-    // Campo opcional para una imagen de la promoción
     @Column(name = "imagen_url", length = 255)
     private String imagenUrl;
 
@@ -54,7 +53,7 @@ public class Promocion {
         MONTO_FIJO
     }
 
-     @ManyToMany(fetch = FetchType.EAGER) // <-- CAMBIA A EAGER
+     @ManyToMany(fetch = FetchType.EAGER) 
     @JoinTable(
         name = "producto_promocion", 
         joinColumns = @JoinColumn(name = "promocion_id"), 

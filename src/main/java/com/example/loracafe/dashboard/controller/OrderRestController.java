@@ -1,7 +1,7 @@
 package com.example.loracafe.dashboard.controller;
 
 import com.example.loracafe.common.dto.PedidoDashboardDto;
-import com.example.loracafe.common.dto.PedidoDetalleDto; // DTO para la vista detallada
+import com.example.loracafe.common.dto.PedidoDetalleDto; 
 import com.example.loracafe.common.entity.Pedido;
 import com.example.loracafe.common.entity.Pedido.EstadoPedido;
 import com.example.loracafe.common.service.PedidoService;
@@ -25,9 +25,7 @@ public class OrderRestController {
     private PedidoService pedidoService;
 
     /**
-     * ¡¡MÉTODO CORREGIDO!!
-     * Obtiene todos los pedidos de forma paginada y convertidos a DTOs para evitar errores de serialización.
-     * @return Una página de PedidoDashboardDto.
+      @return 
      */
     @GetMapping
     public ResponseEntity<Page<PedidoDashboardDto>> getAllPedidos(
@@ -53,20 +51,13 @@ public class OrderRestController {
             } catch(Exception e) { /* Ignorar fecha inválida */ }
         }
         
-        // 1. Obtenemos la página de entidades Pedido.
         Page<Pedido> pedidosPage = pedidoService.getAllPedidos(spec, pageable);
 
-        // 2. Convertimos la página de entidades a una página de DTOs.
         Page<PedidoDashboardDto> pedidosDtoPage = pedidosPage.map(PedidoDashboardDto::new);
         
-        // 3. Devolvemos la página de DTOs.
         return ResponseEntity.ok(pedidosDtoPage);
     }
 
-    /**
-     * ¡¡MÉTODO CORREGIDO!!
-     * Obtiene los detalles de un solo pedido usando un DTO.
-     */
     @GetMapping("/{id}")
     public ResponseEntity<PedidoDetalleDto> getPedidoById(@PathVariable Integer id) {
         return pedidoService.getPedidoById(id)
@@ -74,10 +65,7 @@ public class OrderRestController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /**
-     * ¡¡MÉTODO CORREGIDO!!
-     * Actualiza el estado de un pedido y devuelve el pedido actualizado como un DTO.
-     */
+   
     @PutMapping("/{id}/status")
     public ResponseEntity<PedidoDashboardDto> updateOrderStatus(@PathVariable Integer id, @RequestBody Map<String, String> statusUpdate) {
         String nuevoEstadoStr = statusUpdate.get("status");
@@ -97,7 +85,6 @@ public class OrderRestController {
             pedido.setEstado(nuevoEstado);
             
             Pedido pedidoActualizado = pedidoService.savePedido(pedido);
-            // Devolvemos el DTO actualizado
             return ResponseEntity.ok(new PedidoDashboardDto(pedidoActualizado));
 
         } catch (IllegalArgumentException e) {

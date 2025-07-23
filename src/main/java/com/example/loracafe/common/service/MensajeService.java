@@ -1,4 +1,4 @@
-package com.example.loracafe.common.service; // <-- Paquete corregido a 'common'
+package com.example.loracafe.common.service; 
 
 import com.example.loracafe.common.dto.MensajeDto;
 import com.example.loracafe.common.entity.Mensaje;
@@ -19,17 +19,13 @@ public class MensajeService {
     private MensajeRepository mensajeRepository;
 
     /**
-     * ¡¡MÉTODO MODIFICADO!!
-     * Obtiene todos los mensajes y los convierte a DTOs para el dashboard,
-     * evitando problemas de serialización JSON.
-     * @return Una lista de MensajeDto.
+      @return 
      */
     public List<MensajeDto> getAllMensajes() {
         List<Mensaje> mensajes = mensajeRepository.findAllByOrderByFechaEnvioDesc();
         
-        // Convertimos cada entidad 'Mensaje' a un 'MensajeDto'
         return mensajes.stream()
-                .map(MensajeDto::new) // Utiliza el constructor que creamos en el DTO
+                .map(MensajeDto::new) 
                 .collect(Collectors.toList());
     }
 

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// Esta clase es un "contenedor" simple para los datos del perfil del usuario.
 @Getter
 @Setter
 @NoArgsConstructor

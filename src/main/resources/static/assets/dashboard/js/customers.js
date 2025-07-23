@@ -1,21 +1,14 @@
-// customers.js
-
 const API_URL_CUSTOMERS = '/api/dashboard/customers';
 
-/**
- * Listener que se ejecuta cuando el DOM está completamente cargado.
- */
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Si la página de clientes es la que está activa, cargamos la tabla y configuramos los listeners.
     if (document.getElementById('customers-page')?.classList.contains('active')) {
         populateCustomersTable();
         setupCustomersEventListeners();
     }
 });
 
-/**
- * Configura los event listeners para la página de clientes, como la barra de búsqueda.
- */
+
 function setupCustomersEventListeners() {
     const customerSearch = document.getElementById('customer-search');
     customerSearch?.addEventListener('input', (e) => {
@@ -24,24 +17,23 @@ function setupCustomersEventListeners() {
 }
 
 /**
- * Rellena la tabla de clientes, que son usuarios con el rol 'CLIENTE'.
- * @param {string} searchTerm - Término opcional para buscar clientes.
+  @param {string} searchTerm 
  */
 function populateCustomersTable(searchTerm = '') {
     const tableBody = document.querySelector('#customers-table tbody');
     if (!tableBody) return;
     tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Cargando clientes...</td></tr>';
 
-    const url = API_URL_CUSTOMERS; // La búsqueda se hará en el frontend por ahora
+    const url = API_URL_CUSTOMERS;
 
     fetch(url)
         .then(response => response.json())
         .then(customers => {
             tableBody.innerHTML = '';
-            
+
             const filteredCustomers = searchTerm
-                ? customers.filter(c => 
-                    (c.nombre + ' ' + c.apellido).toLowerCase().includes(searchTerm.toLowerCase()) || 
+                ? customers.filter(c =>
+                    (c.nombre + ' ' + c.apellido).toLowerCase().includes(searchTerm.toLowerCase()) ||
                     c.email.toLowerCase().includes(searchTerm.toLowerCase()))
                 : customers;
 
@@ -49,11 +41,9 @@ function populateCustomersTable(searchTerm = '') {
                 tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No se encontraron clientes.</td></tr>';
                 return;
             }
-            
+
             filteredCustomers.forEach(customer => {
                 const row = tableBody.insertRow();
-                // ¡¡CAMBIO CLAVE AQUÍ!!
-                // Ahora usamos el campo 'totalPedidos' que viene del DTO.
                 row.innerHTML = `
                     <td>${customer.nombre} ${customer.apellido}</td>
                     <td>${customer.email}</td>

@@ -19,7 +19,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer>, JpaSpe
 
     long countByFechaPedidoAfter(LocalDateTime fecha);
 
-    // Dentro de la interfaz PedidoRepository.java
     Long countByUsuarioId(Integer usuarioId);
     
     long countByVistoFalse();

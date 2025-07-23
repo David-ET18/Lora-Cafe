@@ -36,10 +36,6 @@ public class ClientApiController {
     @Autowired
     private PedidoService pedidoService;
 
-    // =================================================================
-    // ENDPOINTS PÚBLICOS (PRODUCTOS Y PROMOCIONES)
-    // =================================================================
-
    @GetMapping("/products")
 public ResponseEntity<List<ProductoClienteDto>> getProductsForClient(@RequestParam(required = false) Integer categoriaId) {
     List<ProductoClienteDto> productos;
@@ -64,10 +60,7 @@ public ResponseEntity<List<PromocionClienteDto>> getActivePromotions() {
     return ResponseEntity.ok(promociones);
 }
 
-    // =================================================================
-    // ENDPOINTS SEGUROS (REQUIEREN AUTENTICACIÓN)
-    // =================================================================
-
+    
     @PostMapping("/messages")
     public ResponseEntity<Void> submitContactMessage(@RequestBody Mensaje mensaje, Authentication authentication) {
         String userEmail = authentication.getName();
@@ -147,12 +140,10 @@ public ResponseEntity<List<PromocionClienteDto>> getActivePromotions() {
         try {
             Pedido nuevoPedido = pedidoService.crearNuevoPedido(orderRequest, usuario);
             PedidoSimpleDto dto = new PedidoSimpleDto(nuevoPedido);
-            return ResponseEntity.status(HttpStatus.CREATED).body(dto); // Devolvemos 201 Created
+            return ResponseEntity.status(HttpStatus.CREATED).body(dto); 
         } catch (IllegalStateException e) {
-            // Error de negocio (ej. falta de stock)
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (RuntimeException e) {
-            // Cualquier otro error inesperado
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

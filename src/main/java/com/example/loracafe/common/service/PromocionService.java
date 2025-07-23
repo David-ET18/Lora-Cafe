@@ -18,7 +18,6 @@ public class PromocionService {
     @Autowired
     private PromocionRepository promocionRepository;
 
-    // Para el Dashboard
         public List<PromocionDashboardDto> getAllPromocionesDto() {
         return promocionRepository.findAll()
                 .stream()
@@ -41,7 +40,6 @@ public class PromocionService {
         promocionRepository.deleteById(id);
     }
 
-    // Para el Cliente
     public List<Promocion> getActivePromociones() {
         LocalDateTime ahora = LocalDateTime.now();
         return promocionRepository.findByActivaTrueAndFechaInicioBeforeAndFechaFinAfter(ahora, ahora);

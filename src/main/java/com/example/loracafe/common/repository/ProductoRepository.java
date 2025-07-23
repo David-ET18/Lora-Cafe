@@ -20,7 +20,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>, Jp
 
     List<Producto> findByNombreContainingIgnoreCase(String nombre);
 
-    // NUEVOS MÉTODOS PARA EL CLIENTE:
     List<Producto> findByDisponibleTrue();
     List<Producto> findByDisponibleTrueAndCategoriaId(Integer categoriaId);
     Optional<Producto> findByIdAndDisponibleTrue(Integer id);

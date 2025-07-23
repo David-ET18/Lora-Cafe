@@ -1,6 +1,3 @@
-// Carrito.js
-
-// Referencias a los elementos del DOM.
 const carritoContenido = document.getElementById("carrito-contenido");
 const totalUnidades = document.getElementById("total-unidades");
 const totalPrecio = document.getElementById("total-precio");
@@ -13,17 +10,13 @@ const carritoResumen = document.getElementById("carrito-resumen");
 const formularioPago = document.getElementById('formulario-pago');
 const emptyCartMsg = document.getElementById("empty-cart-message");
 
-/**
- * Listener principal que se ejecuta al cargar la página del carrito.
- */
+
 document.addEventListener("DOMContentLoaded", () => {
     cargarCarrito();
 
     if (comprarBtn) comprarBtn.addEventListener("click", mostrarModalPago);
     if (reiniciarBtn) reiniciarBtn.addEventListener("click", reiniciarCarrito);
     if (cerrarModalBtn) cerrarModalBtn.addEventListener("click", cerrarModalPago);
-    
-    // El listener del submit se asocia al formulario de pago de tarjeta
     if (formularioPago) {
         formularioPago.addEventListener("submit", (event) => {
             procesarCompra(event, 'tarjeta');
@@ -35,15 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-/**
- * Carga los productos desde localStorage y los renderiza en la página.
- */
+
 function cargarCarrito() {
     const carrito = JSON.parse(localStorage.getItem("productos")) || [];
-    
+
     if (!carritoContenido || !carritoResumen || !emptyCartMsg) return;
 
-    carritoContenido.innerHTML = ""; 
+    carritoContenido.innerHTML = "";
 
     if (carrito.length === 0) {
         carritoResumen.style.display = "none";
@@ -69,7 +60,7 @@ function cargarCarrito() {
         subtotalPrecio.textContent = `S/ ${precioTotal.toFixed(2)}`;
         totalPrecio.textContent = `S/ ${precioTotal.toFixed(2)}`;
     }
-    
+
     if (typeof actualizarContadorNavbar === 'function') {
         actualizarContadorNavbar();
     }
@@ -119,7 +110,7 @@ function mostrarModalPago() {
     const total = document.getElementById('total-precio').textContent;
     document.getElementById('modal-total-precio').textContent = total;
     modalPago.classList.add("active");
-    setupPaymentMethodTabs(); 
+    setupPaymentMethodTabs();
 }
 
 function cerrarModalPago() { if (modalPago) modalPago.classList.remove("active"); }
@@ -141,39 +132,31 @@ function setupPaymentMethodTabs() {
                 panel.classList.toggle('active', panel.id === `${method}-content`);
             });
 
-            // Lógica para cambiar la acción del botón de pago
             if (method === 'billetera') {
                 finalPayBtn.textContent = 'Confirmar Pago';
-                finalPayBtn.removeAttribute('form'); // Desasociar del formulario de tarjeta
-                // Asignamos un nuevo listener que llama a procesarCompra pero sin validación de tarjeta.
+                finalPayBtn.removeAttribute('form');
                 finalPayBtn.onclick = () => procesarCompra(null, 'billetera');
-            } else { // Tarjeta
+            } else {
                 finalPayBtn.innerHTML = '<ion-icon name="shield-checkmark-outline"></ion-icon> Pagar Ahora';
-                finalPayBtn.onclick = null; // Quitar el listener anterior
-                // Volvemos a asociar el botón al formulario para que el 'submit' funcione.
+                finalPayBtn.onclick = null;
                 finalPayBtn.setAttribute('form', 'formulario-pago');
             }
         });
     });
-    // Activar la primera pestaña por defecto al abrir
     methodBtns[0]?.click();
 }
 
 /**
- * ¡¡FUNCIÓN MEJORADA!!
- * Valida, construye el DTO y envía el pedido al backend.
- * Acepta un parámetro opcional para saber qué método de pago se usó.
- * @param {Event|null} event - El evento de submit del formulario.
- * @param {string} paymentMethod - 'tarjeta' o 'billetera'.
+  @param {Event|null} event 
+  @param {string} paymentMethod 
  */
 function procesarCompra(event, paymentMethod = 'tarjeta') {
     if (event) {
-        event.preventDefault(); // Prevenir recarga si es un evento de formulario
+        event.preventDefault();
     }
-    
-    // Validar el formulario de tarjeta solo si es necesario
+
     if (paymentMethod === 'tarjeta' && !validarFormularioTarjeta()) {
-        return; 
+        return;
     }
 
     const carrito = JSON.parse(localStorage.getItem("productos")) || [];
@@ -182,7 +165,6 @@ function procesarCompra(event, paymentMethod = 'tarjeta') {
         return;
     }
 
-    // El campo de dirección es común y siempre requerido
     const direccion = document.getElementById('direccion').value.trim();
     if (!direccion) {
         alert("La dirección de entrega es obligatoria.");
@@ -210,28 +192,26 @@ function procesarCompra(event, paymentMethod = 'tarjeta') {
         },
         body: JSON.stringify(orderRequest)
     })
-    .then(async response => {
-        if (response.ok) return response.json();
-        const errorText = await response.text();
-        console.error("Error del servidor:", errorText);
-        if (response.status === 409) throw new Error('¡Ups! Uno de los productos se quedó sin stock.');
-        if (response.status === 403) throw new Error('Debes iniciar sesión para comprar.');
-        throw new Error('No se pudo procesar tu pedido.');
-    })
-    .then(pedidoCreado => {
-        alert(`¡Compra realizada con éxito! Tu pedido es el #${pedidoCreado.id}.`);
-        localStorage.removeItem("productos");
-        cerrarModalPago();
-        cargarCarrito();
-    })
-    .catch(error => {
-        alert(error.message);
-    });
+        .then(async response => {
+            if (response.ok) return response.json();
+            const errorText = await response.text();
+            console.error("Error del servidor:", errorText);
+            if (response.status === 409) throw new Error('¡Ups! Uno de los productos se quedó sin stock.');
+            if (response.status === 403) throw new Error('Debes iniciar sesión para comprar.');
+            throw new Error('No se pudo procesar tu pedido.');
+        })
+        .then(pedidoCreado => {
+            alert(`¡Compra realizada con éxito! Tu pedido es el #${pedidoCreado.id}.`);
+            localStorage.removeItem("productos");
+            cerrarModalPago();
+            cargarCarrito();
+        })
+        .catch(error => {
+            alert(error.message);
+        });
 }
 
-/**
- * Valida únicamente los campos del formulario de la tarjeta.
- */
+
 function validarFormularioTarjeta() {
     const camposRequeridos = document.querySelectorAll('#formulario-pago input[required]');
     for (const campo of camposRequeridos) {
@@ -241,7 +221,6 @@ function validarFormularioTarjeta() {
             return false;
         }
     }
-    // Aquí irían validaciones más específicas de la tarjeta
     return true;
 }
 

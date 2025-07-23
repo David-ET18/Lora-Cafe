@@ -39,9 +39,7 @@ public class ReportRestController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(pdfInputStream));
     }
-    // ======================================================
-    //     NUEVO ENDPOINT PARA REPORTE DE VENTAS
-    // ======================================================
+    
     @GetMapping(value = "/sales", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> getSalesReport() {
         ByteArrayInputStream pdf = reportService.generateSalesPdfReport();
@@ -54,9 +52,7 @@ public class ReportRestController {
                 .body(new InputStreamResource(pdf));
     }
 
-    // ======================================================
-    //     NUEVO ENDPOINT PARA REPORTE DE CLIENTES
-    // ======================================================
+    
     @GetMapping(value = "/customers", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> getCustomersReport() {
         ByteArrayInputStream pdf = reportService.generateCustomersPdfReport();
@@ -69,15 +65,12 @@ public class ReportRestController {
                 .body(new InputStreamResource(pdf));
     }
 
-    // ======================================================
-//     NUEVO ENDPOINT PARA REPORTE GENERAL
-// ======================================================
+    
 @GetMapping(value = "/general", produces = MediaType.APPLICATION_PDF_VALUE)
 public ResponseEntity<InputStreamResource> getGeneralReport() {
     ByteArrayInputStream pdf = reportService.generateGeneralDashboardReport();
 
     HttpHeaders headers = new HttpHeaders();
-    // Le damos un nombre al archivo con la fecha actual
     String filename = "reporte_general_" + LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE) + ".pdf";
     headers.add("Content-Disposition", "inline; filename=" + filename);
 

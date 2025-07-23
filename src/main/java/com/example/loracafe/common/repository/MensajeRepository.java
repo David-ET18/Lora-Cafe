@@ -14,11 +14,8 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Integer> {
     List<Mensaje> findTop5ByOrderByFechaEnvioDesc();
 
     long countByVistoFalse();
-    // Dentro de la interfaz MensajeRepository.java
 List<Mensaje> findByUsuarioIdOrderByFechaEnvioDesc(Integer usuarioId);
 
-// Dentro de la interfaz MensajeRepository.java
 
-// Spring Data JPA creará la consulta: SELECT count(*) FROM mensaje WHERE estado = ?
 long countByEstado(Mensaje.EstadoMensaje estado);
 }

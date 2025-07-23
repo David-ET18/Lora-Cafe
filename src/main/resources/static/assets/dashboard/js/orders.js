@@ -1,5 +1,3 @@
-// orders.js
-
 const API_URL_ORDERS = '/api/dashboard/orders';
 let currentPage = 0;
 const pageSize = 10;
@@ -20,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupOrderEventListeners() {
     const statusFilter = document.getElementById('order-status-filter');
     const dateFilter = document.getElementById('order-date-filter');
-    
+
     statusFilter?.addEventListener('change', () => { currentPage = 0; populateOrdersTable(); });
     dateFilter?.addEventListener('input', () => { currentPage = 0; populateOrdersTable(); });
 }
@@ -29,7 +27,7 @@ function populateOrdersTable() {
     const tableBody = document.querySelector('#orders-table tbody');
     if (!tableBody) return;
     tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Cargando pedidos...</td></tr>';
-    
+
     const status = document.getElementById('order-status-filter').value;
     const date = document.getElementById('order-date-filter').value;
 
@@ -74,8 +72,6 @@ function populateOrdersTable() {
         });
 }
 
-
-
 function renderPaginationControls(page) {
     let paginationContainer = document.getElementById('order-pagination');
     if (!paginationContainer) {
@@ -85,7 +81,7 @@ function renderPaginationControls(page) {
         document.querySelector('#orders-page .card')?.appendChild(paginationContainer);
     }
     paginationContainer.innerHTML = '';
-    
+
     if (page.totalPages <= 1) return;
 
     const prevButton = document.createElement('button');
@@ -104,4 +100,3 @@ function renderPaginationControls(page) {
     nextButton.addEventListener('click', () => { if (!page.last) { currentPage++; populateOrdersTable(); } });
     paginationContainer.appendChild(nextButton);
 }
-

@@ -42,9 +42,7 @@ public class PromocionRestController {
 
     @PostMapping
     public ResponseEntity<Promocion> createPromocion(@RequestBody Promocion promocion) {
-        // Al crear, simplemente guardamos lo que llega.
-        // La asociación de productos se puede hacer después, en la edición.
-        promocion.setProductos(new HashSet<>()); // Inicializar como vacío para evitar nulls
+        promocion.setProductos(new HashSet<>()); 
         Promocion savedPromo = promocionService.savePromocion(promocion);
         return new ResponseEntity<>(savedPromo, HttpStatus.CREATED);
     }
@@ -53,7 +51,6 @@ public class PromocionRestController {
     public ResponseEntity<Promocion> updatePromocion(@PathVariable Integer id, @RequestBody Promocion promoDetails) {
         return promocionService.getPromocionById(id)
             .map(promoExistente -> {
-                // Actualizar campos básicos
                 promoExistente.setNombre(promoDetails.getNombre());
                 promoExistente.setDescripcion(promoDetails.getDescripcion());
                 promoExistente.setTipo(promoDetails.getTipo());
@@ -61,16 +58,13 @@ public class PromocionRestController {
                 promoExistente.setFechaInicio(promoDetails.getFechaInicio());
                 promoExistente.setFechaFin(promoDetails.getFechaFin());
                 promoExistente.setActiva(promoDetails.isActiva());
-                promoExistente.setImagenUrl(promoDetails.getImagenUrl()); // Para la imagen de la promo en sí
+                promoExistente.setImagenUrl(promoDetails.getImagenUrl()); 
                 
-                // Actualizar la relación con productos
                 Set<Producto> productosAsociados = new HashSet<>();
                 if (promoDetails.getProductos() != null) {
-                    // Para cada producto enviado desde el frontend (que solo tiene ID),
-                    // lo buscamos en la base de datos para obtener el objeto completo.
                     productosAsociados = promoDetails.getProductos().stream()
                         .map(productoConId -> productoRepository.findById(productoConId.getId()).orElse(null))
-                        .filter(Objects::nonNull) // Filtramos por si algún ID no se encontró
+                        .filter(Objects::nonNull) 
                         .collect(Collectors.toSet());
                 }
                 promoExistente.setProductos(productosAsociados);

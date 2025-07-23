@@ -19,7 +19,6 @@ public class ClientPromotionService {
         LocalDateTime ahora = LocalDateTime.now();
         return promocionRepository.findByActivaTrueAndFechaInicioBeforeAndFechaFinAfter(ahora, ahora)
                 .stream()
-                // Filtramos para asegurarnos de que la promoción tenga al menos un producto asociado
                 .filter(promo -> promo.getProductos() != null && !promo.getProductos().isEmpty())
                 .map(PromocionClienteDto::new)
                 .collect(Collectors.toList());

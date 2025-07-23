@@ -1,35 +1,17 @@
-// app.js
-
-// ====================================================================
-// ===                SCRIPT GLOBAL PARA EL DASHBOARD               ===
-// ====================================================================
-
-
-// ==================== CONSTANTES GLOBALES ====================
-// URL de la API de pedidos, usada por funciones de modales.
 const API_URL_ORDERS_GLOBAL = '/api/dashboard/orders';
-
-
-// ==================== INICIALIZACIÓN PRINCIPAL ====================
-
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- Lógica que se ejecuta en TODAS las páginas del Dashboard ---
+
     setupMobileMenu();
     setupDashboardLogout();
-    initNotifications(); // El sistema de notificaciones debe estar en todas las páginas.
+    initNotifications();
 
-    // --- Lógica que se ejecuta SÓLO en la página principal del Dashboard ---
     if (document.getElementById('dashboard-page')?.classList.contains('active')) {
         initDashboardCharts();
-        attachOrderActionListeners(); // Activa los botones en la tabla "Pedidos Recientes".
+        attachOrderActionListeners();
 
         setupGeneralReportButton();
     }
 });
-
-
-// ==================== FUNCIONES GLOBALES DE CONFIGURACIÓN ====================
 
 function setupMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -62,9 +44,7 @@ function setupDashboardLogout() {
 
 
 
-// ==================== LÓGICA DE LOS GRÁFICOS DEL DASHBOARD ====================
 function initDashboardCharts() {
-    // Hacemos una petición a nuestro nuevo endpoint para los datos de los gráficos.
     fetch('/api/dashboard/chart-data')
         .then(response => {
             if (!response.ok) {
@@ -73,9 +53,7 @@ function initDashboardCharts() {
             return response.json();
         })
         .then(chartData => {
-            // Una vez que tenemos los datos, creamos los gráficos.
 
-            // --- Gráfico de Ventas por Categoría (Doughnut) ---
             const salesByCategoryCtx = document.getElementById('salesByCategoryChart')?.getContext('2d');
             if (salesByCategoryCtx && chartData.salesByCategory) {
                 new Chart(salesByCategoryCtx, {
@@ -85,10 +63,10 @@ function initDashboardCharts() {
                         datasets: [{
                             data: chartData.salesByCategory.data,
                             backgroundColor: [
-                                '#5D4037', // Marrón oscuro
-                                '#8D6E63', // Marrón medio
-                                '#BCAAA4', // Marrón claro
-                                '#EFEBE9'  // Grisáceo
+                                '#5D4037',
+                                '#8D6E63',
+                                '#BCAAA4',
+                                '#EFEBE9'
                             ],
                             borderWidth: 2
                         }]
@@ -96,16 +74,15 @@ function initDashboardCharts() {
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { 
-                            legend: { 
-                                position: 'right' 
-                            } 
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
                         }
                     }
                 });
             }
 
-            // --- Gráfico de Ingresos Mensuales (Line) ---
             const monthlyRevenueCtx = document.getElementById('monthlyRevenueChart')?.getContext('2d');
             if (monthlyRevenueCtx && chartData.monthlyRevenue) {
                 new Chart(monthlyRevenueCtx, {
@@ -126,10 +103,10 @@ function initDashboardCharts() {
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        scales: { 
-                            y: { 
-                                beginAtZero: true 
-                            } 
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
                 });
@@ -137,15 +114,12 @@ function initDashboardCharts() {
         })
         .catch(error => {
             console.error("Error al inicializar los gráficos del dashboard:", error);
-            // Opcional: podrías mostrar un mensaje de error en lugar de los lienzos de los gráficos.
             const chartBoxes = document.querySelectorAll('.chart-box');
             chartBoxes.forEach(box => {
                 box.innerHTML = `<div style="text-align:center; padding-top: 50px; color: #cc0000;">${error.message}</div>`;
             });
         });
-}// app.js
-
-// ==================== LÓGICA DE NOTIFICACIONES (Global) ====================
+}
 
 function initNotifications() {
     const container = document.getElementById('notification-container');
@@ -164,7 +138,7 @@ function initNotifications() {
             badge.style.display = 'none';
         }
     });
-    
+
     fetch('/api/dashboard/notifications').then(res => res.json()).then(notifications => {
         if (notifications.length > 0) {
             list.innerHTML = '';
@@ -188,7 +162,7 @@ function initNotifications() {
             markNotificationsAsRead();
         }
     });
-    
+
     document.addEventListener('click', () => dropdown.classList.remove('active'));
     dropdown.addEventListener('click', (e) => e.stopPropagation());
 }
@@ -200,35 +174,25 @@ function markNotificationsAsRead() {
         method: 'POST',
         headers: { [csrf.header]: csrf.token }
     })
-    .then(response => {
-        if (!response.ok) throw new Error("No se pudieron marcar las notificaciones como leídas.");
-        if (badge) {
-            badge.textContent = '0';
-            badge.style.display = 'none';
-        }
-    })
-    .catch(error => console.error(error.message));
+        .then(response => {
+            if (!response.ok) throw new Error("No se pudieron marcar las notificaciones como leídas.");
+            if (badge) {
+                badge.textContent = '0';
+                badge.style.display = 'none';
+            }
+        })
+        .catch(error => console.error(error.message));
 }
 
-// Añade esta función a tu archivo app.js
-/**
- * Configura el event listener para el botón de "Generar Reporte"
- * en la página principal del dashboard.
- */
+
 function setupGeneralReportButton() {
     const reportBtn = document.getElementById('generate-report');
     if (reportBtn) {
         reportBtn.addEventListener('click', () => {
-            // Abre en una nueva pestaña la URL de la API que genera el PDF.
             window.open('/api/dashboard/reports/general', '_blank');
         });
     }
 }
-
-
-    // =================================================================
-// FUNCIONES GLOBALES PARA PEDIDOS (MODALES Y ACCIONES)
-// =================================================================
 
 function getCsrfToken() {
     const token = document.querySelector("meta[name='_csrf']")?.content;
@@ -257,14 +221,12 @@ function attachOrderActionListeners() {
     });
 }
 
-/**
- * Muestra el modal con los detalles de un pedido.
- */
+
 async function showOrderDetailsModal(orderId) {
     try {
         const response = await fetch(`${API_URL_ORDERS_GLOBAL}/${orderId}`);
         if (!response.ok) throw new Error('Pedido no encontrado');
-        const order = await response.json(); // Recibe PedidoDetalleDto
+        const order = await response.json();
         const itemsHtml = order.detalles.map(item => `<tr><td>${item.productoNombre}</td><td>${item.cantidad}</td><td>S/ ${item.precioUnitario.toFixed(2)}</td><td>S/ ${item.subtotal.toFixed(2)}</td></tr>`).join('');
         const modalContent = `
             <div class="modal active" id="order-details-modal"><div class="modal-content">
@@ -277,19 +239,17 @@ async function showOrderDetailsModal(orderId) {
                 <div class="modal-footer"><button type="button" class="btn" onclick="closeModal()">Cerrar</button></div>
             </div></div>`;
         document.getElementById('modal-container').innerHTML = modalContent;
-    } catch (error) { 
+    } catch (error) {
         console.error("Error al mostrar detalles:", error);
-        alert('No se pudieron cargar los detalles del pedido.'); 
+        alert('No se pudieron cargar los detalles del pedido.');
     }
 }
 
-/**
- * Muestra el modal para actualizar el estado de un pedido.
- */
+
 async function showUpdateStatusModal(orderId) {
     try {
         const response = await fetch(`${API_URL_ORDERS_GLOBAL}/${orderId}`);
-        const order = await response.json(); // Recibe PedidoDetalleDto
+        const order = await response.json();
         const statusOptions = ['PENDIENTE', 'EN_PROCESO', 'COMPLETADO', 'CANCELADO'].map(s => `<option value="${s}" ${order.estado === s ? 'selected' : ''}>${s.replace('_', ' ')}</option>`).join('');
         const modalContent = `
             <div class="modal active" id="update-status-modal"><div class="modal-content">
@@ -305,9 +265,7 @@ async function showUpdateStatusModal(orderId) {
     }
 }
 
-/**
- * Envía la actualización de estado al backend.
- */
+
 function updateOrderStatus(orderId) {
     const newStatus = document.getElementById('new-status').value;
     const csrf = getCsrfToken();
@@ -316,26 +274,22 @@ function updateOrderStatus(orderId) {
         headers: { 'Content-Type': 'application/json', [csrf.header]: csrf.token },
         body: JSON.stringify({ status: newStatus })
     })
-    .then(response => {
-        if (!response.ok) throw new Error("No se pudo actualizar el estado.");
-        return response.json();
-    })
-    .then(() => {
-        alert('Estado actualizado con éxito.');
-        closeModal();
-        // Si estamos en la página de pedidos, la recargamos. Si no, recargamos la página actual.
-        if (document.getElementById('orders-page')?.classList.contains('active')) {
-            populateOrdersTable(); // Función de orders.js
-        } else {
-            window.location.reload(); 
-        }
-    })
-    .catch(err => alert(err.message));
+        .then(response => {
+            if (!response.ok) throw new Error("No se pudo actualizar el estado.");
+            return response.json();
+        })
+        .then(() => {
+            alert('Estado actualizado con éxito.');
+            closeModal();
+            if (document.getElementById('orders-page')?.classList.contains('active')) {
+                populateOrdersTable();
+            } else {
+                window.location.reload();
+            }
+        })
+        .catch(err => alert(err.message));
 }
 
-/**
- * Cierra cualquier modal que esté abierto.
- */
-function closeModal() { 
-    document.getElementById('modal-container').innerHTML = ''; 
+function closeModal() {
+    document.getElementById('modal-container').innerHTML = '';
 }

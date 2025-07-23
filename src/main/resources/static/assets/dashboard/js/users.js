@@ -1,5 +1,3 @@
-// users.js
-
 const API_URL_USERS = '/api/dashboard/users';
 
 function getCsrfToken() {
@@ -148,19 +146,19 @@ function saveUser() {
         headers: { 'Content-Type': 'application/json', [csrf.header]: csrf.token },
         body: JSON.stringify(userData)
     })
-    .then(response => {
-        if (response.ok) return response.json();
-        return response.json().then(error => { throw new Error(error.message || 'Error al guardar.') });
-    })
-    .then(() => {
-        alert(`Usuario ${isEditMode ? 'actualizado' : 'creado'} con éxito.`);
-        closeModal();
-        populateUsersTable();
-    })
-    .catch(error => {
-        console.error('Error al guardar usuario:', error);
-        alert(`Ocurrió un error: ${error.message}`);
-    });
+        .then(response => {
+            if (response.ok) return response.json();
+            return response.json().then(error => { throw new Error(error.message || 'Error al guardar.') });
+        })
+        .then(() => {
+            alert(`Usuario ${isEditMode ? 'actualizado' : 'creado'} con éxito.`);
+            closeModal();
+            populateUsersTable();
+        })
+        .catch(error => {
+            console.error('Error al guardar usuario:', error);
+            alert(`Ocurrió un error: ${error.message}`);
+        });
 }
 
 function closeModal() {

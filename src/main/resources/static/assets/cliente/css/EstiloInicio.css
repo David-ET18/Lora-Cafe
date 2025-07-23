@@ -3,9 +3,9 @@
 
 * {
   margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 section {
@@ -19,7 +19,7 @@ body {
   background-color: #f2f2f2;
   margin: 0;
   padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 img {
@@ -27,139 +27,132 @@ img {
 }
 
 .container-all {
-  position: relative; /* Posiciona el contenedor en relación a su padre o al flujo del documento. */
-  max-width: 1000px; /* Define un ancho máximo de 1000px. */
-  width: 100%; /* El ancho se adapta al 100% del contenedor padre. */
-  border-radius: 6px; /* Bordes redondeados de 6px. */
-  overflow: hidden; /* Oculta el contenido que sobresale del contenedor. */
-  margin-left: auto; /* Centra el contenedor horizontalmente. */
-  margin-right: auto; /* Centra el contenedor horizontalmente. */
-  padding-bottom: 20px; /* Espaciado interno en la parte inferior. */
+  position: relative;
+  max-width: 1000px;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
 }
 
 .slide {
-  display: flex; /* Usa un layout flexible para alinear los elementos secundarios horizontalmente. */
-  transform: translate3d(0, 0, 0); /* Asegura el uso de la aceleración de hardware para la animación. */
-  transition: all 2000ms; /* Aplica una transición suave a todos los cambios durante 2 segundos. */
-  animation-name: autoplay; /* Nombre de la animación que se aplicará. */
-  animation-duration: 8.5s; /* Duración de cada iteración de la animación. */
-  animation-direction: alternate; /* Alterna la dirección de la animación (ida y vuelta). */
-  animation-fill-mode: forwards; /* Mantiene el estado final de la animación. */
-  animation-iteration-count: infinite; /* La animación se repetirá indefinidamente. */
+  display: flex;
+  transform: translate3d(0, 0, 0);
+  transition: all 2000ms;
+  animation-name: autoplay;
+  animation-duration: 8.5s;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
 }
 
 .item-slide {
-  position: relative; /* Posiciona cada ítem en relación a su contenedor. */
-  display: flex; /* Aplica un diseño flexible a cada ítem. */
-  flex-direction: column; /* Ordena los elementos secundarios en una columna. */
-  flex-shrink: 0; /* Evita que los elementos se reduzcan de tamaño. */
-  flex-grow: 0; /* Evita que los elementos crezcan para llenar el espacio disponible. */
-  max-width: 100%; /* El ancho máximo es el 100% del contenedor padre. */
-  animation-duration: 3.5s; /* Define la duración de la animación para cada ítem. */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  flex-grow: 0;
+  max-width: 100%;
+  animation-duration: 3.5s;
 }
 
 .pagination {
-  position: relative; /* Posiciona la paginación en relación al flujo del documento. */
-  bottom: auto; /* No ajusta la posición desde la parte inferior. */
-  left: auto; /* No ajusta la posición desde la izquierda. */
-  display: flex; /* Usa un layout flexible para alinear los botones de paginación. */
-  justify-content: center; /* Centra los botones horizontalmente. */
-  align-items: center; /* Alinea los botones verticalmente en el centro. */
-  gap: 10px; /* Espacio de 10px entre los botones. */
-  margin-top: 10px; /* Margen superior de 10px. */
-  margin-bottom: 20px; /* Margen inferior de 20px. */
+  position: relative;
+  bottom: auto;
+  left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .logo {
-  color: white; /* Define el color del texto como blanco. */
-  font-size: 24px; /* Define el tamaño de fuente de 24px. */
+  color: white;
+  font-size: 24px;
 }
 
 .logo:hover {
-  color: orange; /* Cambia el color a naranja al pasar el cursor sobre el elemento. */
+  color: orange;
 }
 
 .pagination-item {
-  display: flex; /* Aplica un diseño flexible a cada ítem de paginación. */
-  flex-direction: column; /* Ordena los elementos secundarios en una columna. */
-  align-items: center; /* Alinea los ítems en el centro horizontalmente. */
-  border: 2px solid white; /* Borde blanco de 2px alrededor de cada ítem. */
-  width: 16px; /* Ancho fijo de 16px. */
-  height: 16px; /* Altura fija de 16px. */
-  border-radius: 4px; /* Bordes redondeados de 4px. */
-  overflow: hidden; /* Oculta cualquier contenido que exceda los bordes. */
-  cursor: pointer; /* Cambia el cursor a una mano al pasar por encima. */
-  background: rgb(235, 158, 80); /* Fondo de color naranja claro. */
-  margin: 0 10px; /* Margen horizontal de 10px. */
-  text-align: center; /* Alinea el texto en el centro. */
-  transition: all 300ms; /* Aplica una transición suave para todos los cambios en 300ms. */
-  margin-top: -20px; /* Ajusta la posición superior del ítem. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid white;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgb(235, 158, 80);
+  margin: 0 10px;
+  text-align: center;
+  transition: all 300ms;
+  margin-top: -20px;
 }
 
 .pagination-item:hover {
-  transform: scale(2); /* Agranda el ítem al pasar el cursor sobre él. */
+  transform: scale(2);
 }
 
 .pagination-item img {
-  display: inline-block; /* Asegura que la imagen se comporte como un bloque en línea. */
-  max-width: none; /* Permite que la imagen exceda su tamaño máximo natural. */
-  height: 100%; /* Ajusta la altura de la imagen al 100% del contenedor. */
-  transform: scale(1); /* Mantiene la escala original. */
-  opacity: 0; /* Hace que la imagen sea invisible por defecto. */
-  transition: all 300ms; /* Aplica una transición suave para los cambios. */
+  display: inline-block;
+  max-width: none;
+  height: 100%;
+  transform: scale(1);
+  opacity: 0;
+  transition: all 300ms;
 }
 
 .pagination-item:hover img {
-  opacity: 1; /* Hace visible la imagen al pasar el cursor sobre el ítem. */
-  transform: scale(1); /* Mantiene la escala original de la imagen. */
+  opacity: 1;
+  transform: scale(1);
 }
 
 
-/* Si el input con id="1" está seleccionado (marcado), desactiva la animación y resetea la posición de la diapositiva */
-input[id="1"]:checked ~ .slide {
-  animation: none; /* Desactiva la animación del carrusel. */
-  transform: translate3d(0,0,0); /* Restaura la posición de la diapositiva al inicio (sin desplazamiento). */
+input[id="1"]:checked~.slide {
+  animation: none;
+  transform: translate3d(0, 0, 0);
 }
 
-/* Si el input con id="1" está seleccionado, cambia el color de fondo del ítem de paginación correspondiente */
-input [id="1"]:checked ~ .pagination .pagination-item[for="1"] {
-  background: #FFF; /* Cambia el fondo del ítem de paginación al blanco. */
+input [id="1"]:checked~.pagination .pagination-item[for="1"] {
+  background: #FFF;
 }
 
-/* Si el input con id="2" está seleccionado (marcado), desactiva la animación y mueve la diapositiva a la posición 2 */
-input[id="2"]:checked ~ .slide {
-  animation: none; /* Desactiva la animación del carrusel. */
-  transform: translate3d(calc(-100%*1),0,0); /* Mueve la diapositiva a la segunda posición (100% del ancho del carrusel). */
+input[id="2"]:checked~.slide {
+  animation: none;
+  transform: translate3d(calc(-100%*1), 0, 0);
 }
 
-/* Si el input con id="2" está seleccionado, cambia el color de fondo del ítem de paginación correspondiente */
-input [id="2"]:checked ~ .pagination .pagination-item[for="2"] {
-  background: #FFF; /* Cambia el fondo del ítem de paginación al blanco. */
+input [id="2"]:checked~.pagination .pagination-item[for="2"] {
+  background: #FFF;
 }
 
-/* Si el input con id="3" está seleccionado (marcado), desactiva la animación y mueve la diapositiva a la posición 3 */
-input[id="3"]:checked ~ .slide {
-  animation: none; /* Desactiva la animación del carrusel. */
-  transform: translate3d(calc(-100%*2),0,0); /* Mueve la diapositiva a la tercera posición (100%*2 del ancho del carrusel). */
+input[id="3"]:checked~.slide {
+  animation: none;
+  transform: translate3d(calc(-100%*2), 0, 0);
 }
 
-/* Si el input con id="3" está seleccionado, cambia el color de fondo del ítem de paginación correspondiente */
-input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
-  background: #FFF; /* Cambia el fondo del ítem de paginación al blanco. */
+input [id="3"]:checked~.pagination .pagination-item[for="3"] {
+  background: #FFF;
 }
 
-/* Animación del carrusel: mueve las diapositivas en tres pasos */
 @keyframes autoplay {
   33% {
-    transform: translate3d(calc(-100%*0),0,0); /* Mueve a la primera diapositiva (posición 0). */
+    transform: translate3d(calc(-100%*0), 0, 0);
   }
 
   66% {
-    transform: translate3d(calc(-100%*1),0,0); /* Mueve a la segunda diapositiva (posición 1). */
+    transform: translate3d(calc(-100%*1), 0, 0);
   }
 
   100% {
-    transform: translate3d(calc(-100%*2),0,0); /* Mueve a la tercera diapositiva (posición 2). */
+    transform: translate3d(calc(-100%*2), 0, 0);
   }
 }
 
@@ -173,9 +166,9 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
   margin-top: 80px;
   position: relative;
   width: 100%;
-  height: 60vh; /* Ocupa toda la pantalla */
+  height: 60vh;
   overflow: hidden;
-  background-color: #F5E2C8; /* Fondo claro */
+  background-color: #F5E2C8;
 }
 
 
@@ -194,17 +187,17 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
 
 
 .menu {
-  position: relative; /* Asegura que no herede nada del header */
-  width: 100%; /* Ocupa todo el ancho de la página */
-  background-color: #e77c15; /* Fondo sólido negro */
-  padding: 10px 20px; /* Espaciado interno */
-  z-index: 100000; /* Coloca el menú sobre el contenido */
+  position: relative;
+  width: 100%;
+  background-color: #e77c15;
+  padding: 10px 20px;
+  z-index: 100000;
 }
 
 .menu .menu-list {
   display: flex;
-  justify-content: flex-end; /* Alinea los enlaces a la derecha */
-  list-style: none; /* Elimina los puntos de lista */
+  justify-content: flex-end;
+  list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -214,7 +207,8 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
 
 .menu .menu-list a {
   text-decoration: none;
-  color: white; /* Texto blanco */
+  color: white;
+  /* Texto blanco */
   font-size: 16px;
   font-weight: bold;
   width: 100%;
@@ -222,26 +216,26 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
 
 
 .menu-list a:hover {
-  color: orange; 
+  color: orange;
 }
 
 
 #menu-toggle {
-  display: none; 
+  display: none;
 }
 
 .menu-icon {
-  display: none; 
-  width: 50px; 
-  height: 50px; 
-  cursor: pointer; 
+  display: none;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 
 .header-content {
-  position: relative; /* Asegura que el contenido quede encima del pseudoelemento */
-  z-index: 1; /* Asegura que el texto esté sobre el carrusel */
-  
+  position: relative;
+  z-index: 1;
+
 }
 
 .header-content h1 {
@@ -255,7 +249,7 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
 
 
 .header-content p {
-  font-size: 20px; 
+  font-size: 20px;
   color: white;
   margin-bottom: 25px;
 }
@@ -281,7 +275,7 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
   padding: 100px 0;
   background-color: #ECECEC;
   position: relative;
-  
+
 }
 
 .coffee-content {
@@ -291,15 +285,15 @@ input [id="3"]:checked ~ .pagination .pagination-item[for="3"] {
 .coffee-content h2 {
   font-size: 55px;
   line-height: 70px;
-  color:#e77c15;
+  color: #e77c15;
   text-transform: uppercase;
   padding: 0 250px;
   margin-bottom: 15px;
 }
 
 .coffee-content p {
- 
-  color:black;
+
+  color: black;
 }
 
 
@@ -317,15 +311,14 @@ html {
 }
 
 .services {
-  background-image: linear-gradient(
-    rgba(0,0,0,0.7),
-    rgba(0,0,0,0.7)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)),
     url(/img/img-inicio/servicios2.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    padding: 100px 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 100px 0;
 }
 
 .services-content {
@@ -376,52 +369,53 @@ html {
 .promociones h2 {
   font-size: 40px;
   margin-bottom: 20px;
-   color:#e77c15;;
+  color: #e77c15;
+  ;
 }
 
 .promociones-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-  gap: 20px; /* Espacio entre las tarjetas */
-  width: 100%; /* Ocupa todo el ancho de la página */
-  padding: 20px; /* Espaciado interno para separar del borde */
-  box-sizing: border-box; /* Incluye padding en el ancho */
- 
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+
 }
 
-/* Animación para la subida de las promociones */
 .promociones-grid.animate {
-  animation: slide-up 1s forwards; /* La animación se activa cuando la clase 'animate' se agrega */
+  animation: slide-up 1s forwards;
 }
 
 @keyframes slide-up {
   0% {
-    transform: translateY(50px); /* Empuja las promociones hacia abajo inicialmente */
-    opacity: 0; /* Las promociones empiezan invisibles */
+    transform: translateY(50px);
+    opacity: 0;
   }
+
   100% {
-    transform: translateY(0); /* Mueve las promociones a su posición original (arriba) */
-    opacity: 1; /* Las promociones se vuelven visibles */
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-/* Agrega un efecto hover a cada tarjeta */
 .promocion:hover {
-  transform: translateY(-5px); /* Hace que la tarjeta suba ligeramente al pasar el mouse */
+  transform: translateY(-5px);
 }
+
 .promocion {
   background-color: #f9f9f9;
-  padding: 15px; /* Espaciado interno de cada tarjeta */
+  padding: 15px;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease; /* Suaviza la transición cuando se pasa el mouse */
+  transition: transform 0.3s ease;
 }
 
 .promocion img {
-  width: 80%; /* Ajusta el tamaño de las imágenes */
-  max-width: 420px; /* Tamaño máximo absoluto */
-  height: auto; /* Mantiene la proporción */
+  width: 80%;
+  max-width: 420px;
+  height: auto;
   margin-bottom: 10px;
   border-radius: 10px;
   display: block;
@@ -430,7 +424,7 @@ html {
 }
 
 .promocion img:hover {
-  transform: scale(1.05); /* Aumenta el tamaño sin afectar el layout */
+  transform: scale(1.05);
 }
 
 
@@ -438,14 +432,15 @@ html {
   .header {
     margin-top: 20px;
   }
+
   .promociones-grid {
-    grid-template-columns: repeat(2, 1fr); /* Cambia a 2 columnas */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
   .promociones-grid {
-    grid-template-columns: 1fr; /* Cambia a 1 columna */
+    grid-template-columns: 1fr;
   }
 }
 
@@ -491,22 +486,22 @@ html {
   width: 100%;
   height: 100%;
   display: flex;
-  overflow: hidden; /* Evita que se vean las imágenes fuera del carrusel */
+  overflow: hidden;
 }
 
 .carousel-slide {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  width: 300%; /* Para tres sliders */
+  width: 300%;
   height: 100%;
 }
 
 .carousel-item {
-  flex: 0 0 100%; /* Hace que cada item del carrusel ocupe el 100% del contenedor */
+  flex: 0 0 100%;
   display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: row; /* Por defecto, el texto está al lado de la imagen */
+  flex-direction: row;
 }
 
 
@@ -548,7 +543,7 @@ html {
 
 }
 
-.text-servicios{
+.text-servicios {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -590,27 +585,29 @@ html {
 }
 
 .image img {
-  width: auto; /* Ajusta según sea necesario */
-  height: 75%; 
-  object-fit: contain; 
-  margin-top: 50px; 
-  margin-left: -10px; /* Mueve a la izquierda */
+  width: auto;
+  height: 75%;
+  object-fit: contain;
+  margin-top: 50px;
+  margin-left: -10px;
   border-radius: 10vh;
 }
+
 .image-combos img {
   width: auto;
   height: 90%;
   object-fit: contain;
   margin-top: 30px;
-  margin-left: -100px; /* Mueve a la izquierda */
+  margin-left: -100px;
   border-radius: 10vh;
 }
+
 .image-promos img {
   width: auto;
   height: 90%;
   object-fit: contain;
   margin-top: 30px;
-  margin-left: -100px; /* Mueve a la izquierda */
+  margin-left: -100px;
   border-radius: 10vh;
 }
 
@@ -628,9 +625,10 @@ html {
   height: 90%;
   object-fit: contain;
   margin-top: 30px;
-  margin-left: -100px; /* Mueve a la izquierda */
+  margin-left: -100px;
   border-radius: 10vh;
 }
+
 .promocion .add-promo-to-cart-btn {
   background-color: #e97624;
   color: #fff;
@@ -641,68 +639,70 @@ html {
   margin-top: 10px;
   width: 100%;
 }
+
 .promocion .add-promo-to-cart-btn:hover {
   background-color: #c05d05;
 }
+
 @media (max-width: 768px) {
   .carousel {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
-   
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
   }
 
   .carousel-item {
-    flex-direction: column; /* Cambia la dirección a columna */
-    justify-content: flex-start; /* Alinea los elementos al inicio */
-    align-items: center; /* Centra horizontalmente */
-    width: 100%; /* Ocupa todo el ancho disponible */
-    height: auto; /* Ajusta la altura según el contenido */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: auto;
   }
 
   .text {
-    text-align: center; /* Centra el texto */
-    align-items: center; /* Asegura el centrado horizontal */
-    margin: 0; /* Elimina márgenes adicionales */
-    width: 45%; /* Reduce el ancho del texto */
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    width: 45%;
     margin: 0 auto -50px;
     height: auto;
   }
 
   .text h1 {
-    font-size: 1.8rem; /* Reduce el tamaño del título */
+    font-size: 1.8rem;
     margin-bottom: 0.5rem;
-    line-height: 1.2; /* Ajusta el espacio entre líneas */
+    line-height: 1.2;
     width: auto;
   }
 
   .text p {
-    font-size: 0.9rem; /* Ajusta el tamaño del texto */
+    font-size: 0.9rem;
     margin-bottom: 1rem;
     width: auto;
   }
 
   .text-servicios {
-    text-align: center; /* Centra el texto */
-    align-items: center; /* Asegura el centrado horizontal */
-    margin: 0; /* Elimina márgenes adicionales */
-    width: 45%; /* Reduce el ancho del texto */
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    width: 45%;
     margin: 0 auto -20px;
     height: auto;
   }
 
   .text-servicios h1 {
-    font-size: 1.8rem; /* Reduce el tamaño del título */
+    font-size: 1.8rem;
     margin-bottom: 0.5rem;
-    line-height: 1.2; /* Ajusta el espacio entre líneas */
+    line-height: 1.2;
     width: auto;
     height: 20%;
     margin-top: 20px;
   }
 
   .text-servicios p {
-    font-size: 0.9rem; /* Ajusta el tamaño del texto */
+    font-size: 0.9rem;
     margin-bottom: 1rem;
     width: auto;
     height: 20%;
@@ -711,52 +711,52 @@ html {
 
   .image {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
-    margin-bottom: 1rem; /* Espaciado debajo de la imagen */
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .image-uno img {
-    width: auto; /* Reduce el tamaño de la imagen */
-    height: 35%; /* Mantiene la proporción */
-    margin: 0 auto 180px; /* Mueve la imagen un poco hacia arriba */
-    border-radius: 15px; /* Mantiene bordes redondeados */
+    width: auto;
+    height: 35%;
+    margin: 0 auto 180px;
+    border-radius: 15px;
   }
 
   .image-promos img {
-    width: auto; /* Reduce el tamaño de la imagen */
-    height: 30%; /* Mantiene la proporción */
-    margin: 0 auto 30px; /* Mueve la imagen un poco hacia arriba */
-    border-radius: 15px; /* Mantiene bordes redondeados */
+    width: auto;
+    height: 30%;
+    margin: 0 auto 30px;
+    border-radius: 15px;
   }
 
   .image-services img {
-    width: auto; /* Reduce el tamaño de la imagen */
-    height: 25%; /* Mantiene la proporción */
-    margin: 0 auto 30px; /* Mueve la imagen un poco hacia arriba */
-    border-radius: 15px; /* Mantiene bordes redondeados */
+    width: auto;
+    height: 25%;
+    margin: 0 auto 30px;
+    border-radius: 15px;
   }
 
   .image-combos img {
-    width: auto; /* Reduce el tamaño de la imagen */
-    height: 28%; /* Mantiene la proporción */
-    margin: 0 auto 30px; /* Mueve la imagen un poco hacia arriba */
-    border-radius: 15px; /* Mantiene bordes redondeados */
+    width: auto;
+    height: 28%;
+    margin: 0 auto 30px;
+    border-radius: 15px;
   }
 
 
   .carousel-prev,
   .carousel-next {
-    width: 30px; /* Reduce el tamaño de los botones */
+    width: 30px;
     height: 30px;
-    padding: 5px; /* Ajusta el padding */
-    font-size: 1rem; /* Ajusta el tamaño del texto/icono */
+    padding: 5px;
+    font-size: 1rem;
   }
 
   .btn-1 {
-    font-size: 12px; /* Reduce el tamaño del texto */
-    padding: 0.5rem 1rem; /* Reduce el tamaño del botón */
-    border-radius: 5px; /* Ajusta el redondeo */
+    font-size: 12px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
   }
 }
 
@@ -775,10 +775,11 @@ html {
 .btn-1:hover {
   background: darkorange;
 }
+
 @keyframes fadeIn {
   100% {
-      opacity: 1;
-      transform: translateX(0);
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -791,28 +792,28 @@ html {
 @media (max-width: 991px) {
   .menu-list {
     display: none;
-    flex-direction: column; 
-    position: absolute; 
-    top: 60px; 
-    right: 0; 
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
     background-color: #333;
     padding: 10px 0;
     width: 200px;
-    border-radius: 5px; 
+    border-radius: 5px;
   }
 
- 
-  #menu-toggle:checked + .menu-icon + .menu-list {
-    display: flex; 
+
+  #menu-toggle:checked+.menu-icon+.menu-list {
+    display: flex;
   }
 
   .menu-icon {
-    display: block; 
-    cursor: pointer; 
+    display: block;
+    cursor: pointer;
   }
 
   .menu-list li {
-    margin: 10px 0; 
+    margin: 10px 0;
   }
 
   .header {
@@ -875,16 +876,11 @@ html {
     text-align: center;
   }
 
-  .general-2, .general-3 {
+  .general-2,
+  .general-3 {
     display: none;
   }
 
 
-  
+
 }
-
-
-
-  
-
-  

@@ -16,10 +16,7 @@ public class AuthController {
     @Autowired
     private UsuarioService usuarioService;
     
-    /**
-     * Muestra la página de login/registro.
-     * Añade un objeto Usuario vacío al modelo para el data-binding del formulario de registro.
-     */
+    
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("usuario", new Usuario());
@@ -27,23 +24,19 @@ public class AuthController {
     }
 
     /**
-     * Procesa la petición POST del formulario de registro.
-     * @param usuario El objeto Usuario poblado con los datos del formulario.
-     * @param redirectAttributes Para enviar mensajes (éxito o error) a la siguiente página.
-     * @return Una redirección a la página de login.
+      @param usuario 
+      @param redirectAttributes 
+      @return 
      */
     @PostMapping("/registro")
     public String processRegistration(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes) {
         try {
             usuarioService.registrarNuevoCliente(usuario);
-            // Si el registro es exitoso, enviamos un mensaje de éxito.
             redirectAttributes.addFlashAttribute("successMessage", "¡Registro exitoso! Por favor, inicia sesión.");
         } catch (IllegalStateException e) {
-            // Si el email ya existe, enviamos un mensaje de error.
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         
-        // Redirigimos de vuelta a la página de login.
         return "redirect:/login";
     }
 }

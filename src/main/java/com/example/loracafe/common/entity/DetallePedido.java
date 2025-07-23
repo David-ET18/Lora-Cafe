@@ -26,7 +26,7 @@ public class DetallePedido {
     @JsonIgnore
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.EAGER) // Queremos saber el producto en cada detalle
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 

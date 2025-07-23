@@ -7,10 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO para mostrar la vista detallada de un mensaje en el dashboard.
- * Incluye la respuesta, a diferencia del DTO de la lista.
- */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +23,6 @@ public class MensajeDetalleDto {
     private LocalDateTime fechaRespuesta;
     private Mensaje.EstadoMensaje estado;
 
-    // Constructor para convertir de Entidad a DTO
     public MensajeDetalleDto(Mensaje mensaje) {
         this.id = mensaje.getId();
         this.nombre = mensaje.getNombre();

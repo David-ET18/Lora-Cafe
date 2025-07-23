@@ -28,7 +28,6 @@ public class DashboardController {
     private UsuarioService usuarioService;
 
 
-    // Ahora este método responde a GET /dashboard
     @GetMapping
     public String getDashboardPage(Model model) {
         addUserDetailsToModel(model);
@@ -38,7 +37,13 @@ public class DashboardController {
         return "Dashboard/index";
     }
 
-    // Responde a GET /dashboard/products
+    @GetMapping("/categories")
+    public String getCategoriesPage(Model model) {
+        addUserDetailsToModel(model);
+        model.addAttribute("page", "categories");
+        return "Dashboard/index";
+    }
+
     @GetMapping("/products")
     public String getProductsPage(Model model) {
         addUserDetailsToModel(model);
@@ -46,17 +51,14 @@ public class DashboardController {
         return "Dashboard/index";
     }
 
-    // Dentro de DashboardController.java
 
-// Responde a GET /dashboard/promotions
 @GetMapping("/promotions")
 public String getPromotionsPage(Model model) {
     addUserDetailsToModel(model);
-    model.addAttribute("page", "promotions"); // Para el menú
+    model.addAttribute("page", "promotions");
     return "Dashboard/index";
 }
 
-    // Responde a GET /dashboard/orders
     @GetMapping("/orders")
     public String getOrdersPage(Model model) {
         addUserDetailsToModel(model);
@@ -64,8 +66,6 @@ public String getPromotionsPage(Model model) {
         return "Dashboard/index";
     }
 
-    // ... y así sucesivamente para los demás métodos ...
-    // Responde a GET /dashboard/customers
     @GetMapping("/customers")
     public String getCustomersPage(Model model) {
         addUserDetailsToModel(model);
@@ -73,7 +73,6 @@ public String getPromotionsPage(Model model) {
         return "Dashboard/index";
     }
     
-    // Y los que faltaban
     @GetMapping("/messages")
     public String getMessagesPage(Model model) {
         addUserDetailsToModel(model);

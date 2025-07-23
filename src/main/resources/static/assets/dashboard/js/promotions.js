@@ -1,7 +1,5 @@
-// promotions.js
-
 const API_URL_PROMOTIONS = '/api/dashboard/promotions';
-const API_URL_PRODUCTS = '/api/dashboard/products'; // Necesitamos la API de productos
+const API_URL_PRODUCTS = '/api/dashboard/products';
 
 function getCsrfToken() {
     const token = document.querySelector("meta[name='_csrf']")?.content;
@@ -32,7 +30,7 @@ function populatePromotionsTable() {
                 const row = tableBody.insertRow();
                 const vigencia = `${new Date(promo.fechaInicio).toLocaleDateString()} - ${new Date(promo.fechaFin).toLocaleDateString()}`;
                 const descuento = promo.tipo === 'PORCENTAJE' ? `${promo.descuento}%` : `S/ ${promo.descuento.toFixed(2)}`;
-                
+
                 row.innerHTML = `
                     <td>${promo.nombre}</td>
                     <td>${promo.descripcion}</td>
@@ -86,8 +84,7 @@ function deletePromotion(id) {
 
 async function showPromotionModal(promo = null) {
     const isEditMode = promo !== null;
-    
-    // 1. Cargar todos los productos para mostrarlos como opciones
+
     let allProducts = [];
     try {
         const productResponse = await fetch(API_URL_PRODUCTS);
@@ -97,7 +94,6 @@ async function showPromotionModal(promo = null) {
         return;
     }
 
-    // 2. Crear la lista de checkboxes de productos
     const productIdsInPromo = isEditMode && promo.productos ? promo.productos.map(p => p.id) : [];
     const productOptions = allProducts.map(p => `
         <div class="product-checklist-item">
@@ -131,7 +127,7 @@ async function showPromotionModal(promo = null) {
             </div>
             <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" id="save-promo-btn">${isEditMode ? 'Actualizar' : 'Guardar'}</button></div>
         </div></div>`;
-    
+
     document.getElementById('modal-container').innerHTML = modalContent;
     document.getElementById('save-promo-btn').addEventListener('click', savePromotion);
 }
@@ -174,16 +170,16 @@ function savePromotion() {
         headers: { 'Content-Type': 'application/json', [csrf.header]: csrf.token },
         body: JSON.stringify(promoData)
     })
-    .then(response => {
-        if (!response.ok) throw new Error(`Error al guardar la promoción.`);
-        return response.json();
-    })
-    .then(() => {
-        alert(`Promoción ${isEditMode ? 'actualizada' : 'creada'} con éxito.`);
-        closeModal();
-        populatePromotionsTable();
-    })
-    .catch(error => alert(error.message));
+        .then(response => {
+            if (!response.ok) throw new Error(`Error al guardar la promoción.`);
+            return response.json();
+        })
+        .then(() => {
+            alert(`Promoción ${isEditMode ? 'actualizada' : 'creada'} con éxito.`);
+            closeModal();
+            populatePromotionsTable();
+        })
+        .catch(error => alert(error.message));
 }
 
 function closeModal() {

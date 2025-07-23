@@ -1,8 +1,7 @@
-/* EstiloFooter.css */
 
 .site-footer {
-    background-color: #333; /* Un color oscuro y elegante */
-    color: #a9a9a9; /* Texto gris claro para buena legibilidad */
+    background-color: #333; 
+    color: #a9a9a9; 
     padding: 45px 0 20px;
     font-size: 15px;
     line-height: 24px;
@@ -26,13 +25,12 @@
     position: relative;
 }
 
-/* Pequeña línea decorativa bajo los títulos */
 .site-footer h4::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: -10px;
-    background-color: #e27107; /* Color de tu marca */
+    background-color: #e27107; 
     height: 2px;
     width: 50px;
 }

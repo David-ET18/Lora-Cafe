@@ -8,10 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO para mostrar la lista de mensajes en el dashboard.
- * Simplifica la entidad Mensaje para evitar problemas de serialización.
- */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +23,6 @@ public class MensajeDto {
     private LocalDateTime fechaEnvio;
     private Mensaje.EstadoMensaje estado;
 
-    // Constructor para convertir fácilmente de Entidad a DTO
     public MensajeDto(Mensaje mensaje) {
         this.id = mensaje.getId();
         this.nombre = mensaje.getNombre();

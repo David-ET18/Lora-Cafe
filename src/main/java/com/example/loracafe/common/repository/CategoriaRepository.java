@@ -22,6 +22,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
      */
     List<Categoria> findByActiva(boolean activa);
 
-    // NUEVO MÉTODO PARA EL CLIENTE:
     List<Categoria> findByActivaTrue();
 }

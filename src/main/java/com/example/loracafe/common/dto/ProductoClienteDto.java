@@ -6,10 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-/**
- * DTO para mostrar los productos en la carta del cliente.
- * Es un objeto plano para evitar bucles de serialización.
- */
+
 @Getter
 @Setter
 public class ProductoClienteDto {

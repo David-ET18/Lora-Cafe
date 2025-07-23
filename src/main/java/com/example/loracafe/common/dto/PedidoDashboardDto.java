@@ -16,13 +16,12 @@ public class PedidoDashboardDto {
     private Integer id;
     private String clienteNombre;
     private LocalDateTime fechaPedido;
-    private List<String> productos; // Una lista simple de strings
+    private List<String> productos; 
     private BigDecimal total;
     private String estado;
 
     public PedidoDashboardDto(Pedido pedido) {
         this.id = pedido.getId();
-        // Comprobamos si el usuario no es nulo
         if (pedido.getUsuario() != null) {
             this.clienteNombre = pedido.getUsuario().getNombre() + " " + pedido.getUsuario().getApellido();
         } else {
@@ -30,9 +29,8 @@ public class PedidoDashboardDto {
         }
         this.fechaPedido = pedido.getFechaPedido();
         this.total = pedido.getTotal();
-        this.estado = pedido.getEstado().name(); // Devolvemos el nombre del enum
+        this.estado = pedido.getEstado().name(); 
         
-        // Mapeamos los detalles a una lista de strings simples
         if (pedido.getDetalles() != null) {
             this.productos = pedido.getDetalles().stream()
                     .map(detalle -> detalle.getCantidad() + " x " + detalle.getProducto().getNombre())

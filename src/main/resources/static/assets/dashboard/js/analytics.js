@@ -1,5 +1,3 @@
-// analytics.js
-
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('analytics-page')?.classList.contains('active')) {
         initAnalyticsPage();
@@ -38,13 +36,13 @@ function renderAnalyticsTables(data) {
     const topCustomersBody = document.querySelector('#top-customers-table tbody');
     if (topCustomersBody && data.topCustomers) {
         topCustomersBody.innerHTML = '';
-        if(data.topCustomers.length === 0) topCustomersBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No hay datos.</td></tr>';
+        if (data.topCustomers.length === 0) topCustomersBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No hay datos.</td></tr>';
         else data.topCustomers.forEach(c => { topCustomersBody.innerHTML += `<tr><td>${c.nombre} ${c.apellido || ''}</td><td>${c.totalPedidos}</td><td>S/ ${parseFloat(c.totalGastado).toFixed(2)}</td></tr>`; });
     }
     const categoriesBody = document.querySelector('#categories-table tbody');
     if (categoriesBody && data.categorySummary) {
         categoriesBody.innerHTML = '';
-        if(data.categorySummary.length === 0) categoriesBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No hay datos.</td></tr>';
+        if (data.categorySummary.length === 0) categoriesBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No hay datos.</td></tr>';
         else data.categorySummary.forEach(cat => { categoriesBody.innerHTML += `<tr><td>${cat.categoria}</td><td>S/ ${parseFloat(cat.totalVentas).toFixed(2)}</td><td>${parseFloat(cat.porcentaje).toFixed(2)}%</td></tr>`; });
     }
 }

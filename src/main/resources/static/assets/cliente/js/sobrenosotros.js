@@ -1,5 +1,3 @@
-// sobrenosotros.js
-
 document.addEventListener("DOMContentLoaded", () => {
     initToggleButton();
     initScrollAnimations();
@@ -55,18 +53,18 @@ function initContactForm() {
             headers: { 'Content-Type': 'application/json', [csrf.header]: csrf.token },
             body: JSON.stringify(messageData),
         })
-        .then(response => {
-            if (!response.ok) {
-                if (response.status === 403) throw new Error('Debes iniciar sesión para enviar un mensaje.');
-                throw new Error('No se pudo enviar el mensaje.');
-            }
-            return true;
-        })
-        .then(() => {
-            modal.style.display = "flex";
-            form.reset();
-        })
-        .catch(error => alert(error.message));
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 403) throw new Error('Debes iniciar sesión para enviar un mensaje.');
+                    throw new Error('No se pudo enviar el mensaje.');
+                }
+                return true;
+            })
+            .then(() => {
+                modal.style.display = "flex";
+                form.reset();
+            })
+            .catch(error => alert(error.message));
     });
 
     closeModalButton.addEventListener("click", () => modal.style.display = "none");

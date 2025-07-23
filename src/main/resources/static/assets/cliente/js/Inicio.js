@@ -1,37 +1,33 @@
-// Inicio.js
-
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // --- Lógica del carrusel principal ---
-    let currentSlide = 0; 
-    const slides = document.querySelectorAll('.carousel-item'); 
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-item');
     if (slides.length > 0) {
-        const totalSlides = slides.length; 
+        const totalSlides = slides.length;
         const carouselSlide = document.querySelector('.carousel-slide');
-        const prevButton = document.querySelector('.carousel-prev'); 
+        const prevButton = document.querySelector('.carousel-prev');
         const nextButton = document.querySelector('.carousel-next');
 
         function showSlide(index) {
             const slideWidth = 100;
-            if(carouselSlide) carouselSlide.style.transform = `translateX(-${index * slideWidth}%)`; 
+            if (carouselSlide) carouselSlide.style.transform = `translateX(-${index * slideWidth}%)`;
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides; 
-            showSlide(currentSlide); 
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
         }
 
         function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; 
-            showSlide(currentSlide); 
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
         }
 
-        prevButton?.addEventListener('click', prevSlide); 
-        nextButton?.addEventListener('click', nextSlide); 
+        prevButton?.addEventListener('click', prevSlide);
+        nextButton?.addEventListener('click', nextSlide);
         setInterval(nextSlide, 5000);
     }
-    
-    // --- Lógica para la animación de la sección de promociones ---
+
     const promocionesSection = document.querySelector("#promos-section");
     const promocionesGrid = document.querySelector(".promociones-grid");
     if (promocionesSection && promocionesGrid) {
@@ -46,13 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(promocionesSection);
     }
 
-    // --- Carga dinámica de promociones ---
     cargarPromociones();
 });
 
-/**
- * Obtiene las promociones activas desde la API y las muestra en la página.
- */
+
 function cargarPromociones() {
     const container = document.getElementById("promociones-grid-container");
     if (!container) return;
@@ -68,12 +61,12 @@ function cargarPromociones() {
             }
 
             promociones.forEach(promo => {
-                if (!promo.producto) 
-                    return; // Si una promo no tiene producto, la saltamos
+                if (!promo.producto)
+                    return;
 
                 const promoElement = document.createElement('div');
                 promoElement.className = 'promocion';
-                
+
                 promoElement.innerHTML = `
                     <img src="${promo.producto.imagenUrl || '/Vista/Imagenes/img-inicio/promo-default.jpg'}" alt="${promo.producto.nombre}">
                     <h3>${promo.nombre}</h3>
@@ -87,7 +80,7 @@ function cargarPromociones() {
                 container.appendChild(promoElement);
             });
 
-            attachPromoAddToCartListeners(); // Añadir listeners a los nuevos botones
+            attachPromoAddToCartListeners();
         })
         .catch(error => {
             console.error("Error al cargar promociones:", error);
@@ -95,27 +88,23 @@ function cargarPromociones() {
         });
 }
 
-// AÑADE ESTA NUEVA FUNCIÓN a Inicio.js
 function attachPromoAddToCartListeners() {
     document.querySelectorAll('.add-promo-to-cart-btn').forEach(button => {
         button.addEventListener('click', (e) => {
             const productId = e.currentTarget.dataset.productId;
-            
-            // Reutilizamos la lógica de Carta.js
+
             fetch(`/api/client/products/${productId}`)
                 .then(res => res.json())
                 .then(producto => {
-                    // Estas funciones deben estar disponibles globalmente o importadas
                     if (typeof agregarAlCarrito === "function") {
-                         agregarAlCarrito(producto);
-                         alert(`¡"${producto.nombre}" añadido al carrito!`);
+                        agregarAlCarrito(producto);
+                        alert(`¡"${producto.nombre}" añadido al carrito!`);
                     }
                 });
         });
     });
 }
 
-// AÑADE ESTA NUEVA FUNCIÓN a Inicio.js (o asegúrate de que esté en un script global)
 function agregarAlCarrito(producto) {
     let carrito = JSON.parse(localStorage.getItem("productos")) || [];
     const indiceProducto = carrito.findIndex((item) => item.id === producto.id);

@@ -56,8 +56,6 @@ public class DashboardService {
     data.put("totalProductos", productoRepository.count());
     data.put("nuevosClientes", usuarioRepository.countByRolAndFechaRegistroAfter(Usuario.Rol.CLIENTE, startOfMonth));
     
-    // ¡¡NUEVA LÍNEA!!
-    // Contamos los mensajes que tienen el estado 'NUEVO'.
     data.put("mensajesNuevos", mensajeRepository.countByEstado(Mensaje.EstadoMensaje.NUEVO));
     
     List<Pedido> pedidosRecientes = pedidoRepository.findTop5ByOrderByFechaPedidoDesc();
@@ -174,7 +172,6 @@ public class DashboardService {
     public List<NotificacionDto> getNotificaciones() {
         List<NotificacionDto> notificaciones = new ArrayList<>();
 
-        // 1. Obtener los 5 pedidos más recientes
         List<Pedido> pedidosRecientes = pedidoRepository.findTop5ByOrderByFechaPedidoDesc();
         pedidosRecientes.forEach(p -> notificaciones.add(new NotificacionDto(
             "PEDIDO",
@@ -183,8 +180,6 @@ public class DashboardService {
             "/dashboard/orders"
         )));
 
-        // 2. Obtener los 5 mensajes más recientes
-        // (Necesitaríamos un método findTop5... en MensajeRepository)
         List<Mensaje> mensajesRecientes = mensajeRepository.findTop5ByOrderByFechaEnvioDesc();
         mensajesRecientes.forEach(m -> notificaciones.add(new NotificacionDto(
             "MENSAJE",
@@ -193,19 +188,14 @@ public class DashboardService {
             "/dashboard/messages"
         )));
 
-        // 3. Ordenar todas las notificaciones por fecha, de más reciente a más antigua
         notificaciones.sort(Comparator.comparing(NotificacionDto::getFecha).reversed());
 
-        // 4. Devolver solo las 5 más recientes en total
         return notificaciones.stream().limit(5).collect(Collectors.toList());
     }
 
-    // Dentro de DashboardService.java
 
     /**
-     * ¡NUEVO!
-     * Calcula el número total de notificaciones no vistas (pedidos + mensajes).
-     * @return Un mapa con el conteo total.
+      @return 
      */
     public Map<String, Long> getNotificationSummary() {
         long unreadPedidos = pedidoRepository.countByVistoFalse();
@@ -215,20 +205,14 @@ public class DashboardService {
         return summary;
     }
 
-    /**
-     * ¡NUEVO!
-     * Marca todos los pedidos y mensajes no vistos como vistos.
-     * Es transaccional para asegurar que todos los cambios se guarden.
-     */
+    
     @Transactional
     public void markAllNotificationsAsRead() {
-        // Marcamos pedidos
         List<Pedido> unreadPedidos = pedidoRepository.findAll().stream()
                 .filter(p -> !p.isVisto()).collect(Collectors.toList());
         unreadPedidos.forEach(p -> p.setVisto(true));
         pedidoRepository.saveAll(unreadPedidos);
 
-        // Marcamos mensajes
         List<Mensaje> unreadMensajes = mensajeRepository.findAll().stream()
                 .filter(m -> !m.isVisto()).collect(Collectors.toList());
         unreadMensajes.forEach(m -> m.setVisto(true));

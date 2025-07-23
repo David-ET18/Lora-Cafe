@@ -12,12 +12,9 @@ import java.util.List;
 public interface PromocionRepository extends JpaRepository<Promocion, Integer> {
 
     /**
-     * Busca todas las promociones que están activas y cuya fecha actual
-     * está dentro del rango de fecha_inicio y fecha_fin.
-     * Spring Data JPA genera la consulta automáticamente a partir del nombre del método.
-     * @param fechaInicioReferencia La fecha y hora actual para comparar con fecha_inicio.
-     * @param fechaFinReferencia La fecha y hora actual para comparar con fecha_fin.
-     * @return Una lista de promociones válidas.
+      @param fechaInicioReferencia 
+      @param fechaFinReferencia
+      @return 
      */
     List<Promocion> findByActivaTrueAndFechaInicioBeforeAndFechaFinAfter(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 }

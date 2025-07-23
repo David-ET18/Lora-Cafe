@@ -16,7 +16,7 @@ public class ClienteDashboardDto {
     private String email;
     private String telefono;
     private LocalDateTime fechaRegistro;
-    private long totalPedidos; // ¡El nuevo campo calculado!
+    private long totalPedidos; 
 
     public ClienteDashboardDto(Usuario usuario, long totalPedidos) {
         this.id = usuario.getId();

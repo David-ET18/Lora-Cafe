@@ -1,5 +1,3 @@
-// messages.js
-
 const API_URL_MESSAGES = '/api/dashboard/messages';
 
 function getCsrfToken() {
@@ -59,7 +57,7 @@ function attachMessageActionListeners() {
 function deleteMessage(id) {
     if (!confirm('¿Seguro que quieres eliminar este mensaje?')) return;
     const csrf = getCsrfToken();
-    fetch(`${API_URL_MESSAGES}/${id}`, { 
+    fetch(`${API_URL_MESSAGES}/${id}`, {
         method: 'DELETE',
         headers: { [csrf.header]: csrf.token }
     }).then(res => {
@@ -102,26 +100,26 @@ async function replyToMessage(id) {
 function sendReply(id) {
     const respuesta = document.getElementById('reply-message').value;
     if (!respuesta.trim()) { alert('La respuesta no puede estar vacía.'); return; }
-    
-    const csrf = getCsrfToken(); // Obtenemos el token
-    
+
+    const csrf = getCsrfToken();
+
     fetch(`${API_URL_MESSAGES}/${id}/reply`, {
         method: 'POST',
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
-            [csrf.header]: csrf.token // Enviamos el token
+            [csrf.header]: csrf.token
         },
         body: JSON.stringify({ respuesta: respuesta })
     })
-    .then(res => {
-        if (!res.ok) throw new Error('Error al enviar la respuesta.');
-        return res.json();
-    })
-    .then(() => {
-        alert('Respuesta enviada con éxito.');
-        closeModal(true); // Cierra y recarga la tabla
-    })
-    .catch(err => alert(err.message));
+        .then(res => {
+            if (!res.ok) throw new Error('Error al enviar la respuesta.');
+            return res.json();
+        })
+        .then(() => {
+            alert('Respuesta enviada con éxito.');
+            closeModal(true);
+        })
+        .catch(err => alert(err.message));
 }
 
 function closeModal(reload = false) {

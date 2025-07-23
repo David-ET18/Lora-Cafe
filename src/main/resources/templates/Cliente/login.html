@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión / Registro - Lora Café</title>
     <script src="https://kit.fontawesome.com/eb344c5846.js" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    
+
     <link rel="stylesheet" th:href="@{/assets/cliente/css/EstiloLogin.css}">
     <link rel="stylesheet" th:href="@{/assets/cliente/css/EstiloNavbar.css}" />
     <link rel="stylesheet" th:href="@{/assets/cliente/css/EstiloFooter.css}" />
 
 </head>
+
 <body>
-    <!-- ========= NAVBAR (REUTILIZABLE) ========= -->
     <div th:replace="~{Cliente/fragments/navbar :: navbar}"></div>
 
     <section class="login-section">
         <div class="contenedor">
 
-            <!-- ========= FORMULARIO DE INICIO DE SESIÓN ========= -->
             <div class="form-box login">
-                <!-- El action apunta al endpoint de Spring Security. El método es POST. -->
                 <form th:action="@{/login}" method="post">
                     <h1>Iniciar sesión</h1>
-                    
-                    <!-- Mensajes de error de Spring Security -->
+
                     <div th:if="${param.error}" class="alert alert-danger">
                         Email o contraseña incorrectos.
                     </div>
-                    <!-- Mensaje de logout exitoso -->
                     <div th:if="${param.logout}" class="alert alert-success">
                         Has cerrado sesión exitosamente.
                     </div>
-                    <!-- Mensaje de registro exitoso -->
                     <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 
                     <div class="input-box">
-                        <!-- El 'name' debe ser "username" para Spring Security -->
                         <input type="email" placeholder="Correo electrónico" name="username" required>
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <div class="input-box">
-                        <!-- El 'name' debe ser "password" para Spring Security -->
                         <input type="password" placeholder="Contraseña" name="password" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
@@ -53,17 +47,13 @@
                 </form>
             </div>
 
-            <!-- ========= FORMULARIO DE REGISTRO ========= -->
             <div class="form-box register">
-                <!-- El action apunta a nuestro endpoint /registro. Usamos data-binding con th:object -->
                 <form th:action="@{/registro}" method="post" th:object="${usuario}">
                     <h1>Regístrate</h1>
-                    
-                    <!-- Mensaje de error si el email ya existe -->
+
                     <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
                     <div class="input-box">
-                        <!-- th:field conecta este input con el campo 'nombre' del objeto usuario -->
                         <input type="text" placeholder="Nombre" th:field="*{nombre}" required>
                         <i class="fa-solid fa-user"></i>
                     </div>
@@ -79,11 +69,11 @@
                         <input type="password" placeholder="Contraseña" th:field="*{password}" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    
+
                     <button type="submit" class="btn">Registrarse</button>
                 </form>
             </div>
-            
+
             <div class="toggle-box">
                 <div class="toggle-panel toggle-left">
                     <h1>¡Hola, bienvenido!</h1>
@@ -99,10 +89,10 @@
         </div>
     </section>
 
-    <!-- ========= FOOTER (REUTILIZABLE) ========= -->
     <div th:replace="~{Cliente/fragments/footer :: footer}"></div>
 
     <script th:src="@{/assets/cliente/js/login.js}"></script>
     <script th:src="@{/assets/cliente/js/Navbar.js}"></script>
 </body>
+
 </html>

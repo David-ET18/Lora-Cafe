@@ -19,9 +19,7 @@ public class ProductoService {
     private ProductoRepository productoRepository;
 
     /**
-     * Obtiene una lista de las ENTIDADES Producto completas.
-     * Usado internamente por otros servicios, como el ReportService.
-     * @return Lista de todas las entidades Producto.
+      @return 
      */
     public List<Producto> getAllProductos() {
         return productoRepository.findAll();

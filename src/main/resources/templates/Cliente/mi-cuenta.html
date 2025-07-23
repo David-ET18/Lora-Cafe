@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Mi Cuenta - Lora Café</title>
-    <!-- Metatags para el token de seguridad CSRF -->
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
     <link rel="stylesheet" th:href="@{/assets/cliente/css/EstiloNavbar.css}" />
     <link rel="stylesheet" th:href="@{/assets/cliente/css/EstiloMiCuenta.css}" />
     <link rel="stylesheet" th:href="@{/assets/cliente/css/EstiloFooter.css}" />
@@ -15,6 +15,7 @@
 
 
 </head>
+
 <body>
     <div th:replace="~{Cliente/fragments/navbar :: navbar}"></div>
 
@@ -30,7 +31,7 @@
         <div id="perfil" class="tab-content active">
             <h2>Mi Perfil</h2>
             <p>Aquí podrás ver y actualizar tus datos personales.</p>
-            
+
             <form id="profile-form" class="profile-form">
                 <div class="form-grid">
                     <div class="form-group">
@@ -61,18 +62,23 @@
 
         <div id="pedidos" class="tab-content">
             <h2>Mis Pedidos</h2>
-            <div id="pedidos-container"><p>Cargando tus pedidos...</p></div>
+            <div id="pedidos-container">
+                <p>Cargando tus pedidos...</p>
+            </div>
         </div>
 
         <div id="mensajes" class="tab-content">
             <h2>Mis Mensajes</h2>
-            <div id="mensajes-container"><p>Cargando tus mensajes...</p></div>
+            <div id="mensajes-container">
+                <p>Cargando tus mensajes...</p>
+            </div>
         </div>
     </main>
 
     <div th:replace="~{Cliente/fragments/footer :: footer}"></div>
-    
+
     <script th:src="@{/assets/cliente/js/mi-cuenta.js}"></script>
     <script th:src="@{/assets/cliente/js/Navbar.js}"></script>
 </body>
+
 </html>

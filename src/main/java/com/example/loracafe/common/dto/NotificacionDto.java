@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 public class NotificacionDto {
-    private String tipo; // "PEDIDO" o "MENSAJE"
+    private String tipo; 
     private String texto;
     private LocalDateTime fecha;
-    private String url; // Enlace para ir al detalle
+    private String url; 
 }

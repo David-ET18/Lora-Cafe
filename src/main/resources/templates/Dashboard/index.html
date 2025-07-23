@@ -14,13 +14,6 @@
     <link rel="stylesheet" th:href="@{/assets/dashboard/css/responsive.css}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Dentro de la etiqueta <head> en Dashboard/index.html -->
-
-    <!-- ... tus otros <link> y <meta> ... -->
-
-    <!-- ============================================= -->
-    <!--     AÑADE ESTAS DOS LÍNEAS PARA EL TOKEN CSRF     -->
-    <!-- ============================================= -->
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
@@ -28,15 +21,21 @@
 
 <body>
     <div class="app-container">
-        <!-- ==================== SIDEBAR ==================== -->
         <aside class="sidebar">
             <div class="logo-area">
                 <h1><i class="fas fa-mug-hot"></i> Lora Café</h1>
             </div>
+
+            <!--MENU-->
             <div class="menu-items">
                 <a th:href="@{/dashboard}" class="menu-item" th:classappend="${page == 'dashboard' ? 'active' : ''}">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
+                </a>
+                <a th:href="@{/dashboard/categories}" class="menu-item"
+                    th:classappend="${page == 'categories' ? 'active' : ''}">
+                    <i class="fas fa-bookmark">
+                    </i><span>Categorías</span>
                 </a>
                 <a th:href="@{/dashboard/products}" class="menu-item"
                     th:classappend="${page == 'products' ? 'active' : ''}">
@@ -77,8 +76,7 @@
                     <i class="fas fa-file-alt"></i>
                     <span>Reportes</span>
                 </a>
-                
-                <!-- Usamos un div para el logout porque se maneja con un formulario JS -->
+
                 <div class="menu-item" id="logout-dashboard">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Cerrar Sesión</span>
@@ -87,9 +85,7 @@
 
         </aside>
 
-        <!-- ==================== MAIN CONTENT ==================== -->
         <main class="main-content">
-            <!-- Header -->
             <header class="header">
                 <div class="header-left">
                     <div class="menu-toggle">
@@ -98,7 +94,7 @@
                     <h2 id="page-title" th:text="${#strings.capitalize(page ?: 'Dashboard')}">Dashboard</h2>
                 </div>
                 <div class="header-right">
-                    
+
                     <div class="notification-bell" id="notification-container">
                         <button id="notification-button">
                             <i class="fas fa-bell"></i>
@@ -107,7 +103,6 @@
                         <div class="notification-dropdown" id="notification-dropdown">
                             <div class="notification-header">Notificaciones</div>
                             <div class="notification-list" id="notification-list">
-                                <!-- JavaScript llenará esta lista -->
                                 <p class="no-notifications">No hay notificaciones nuevas.</p>
                             </div>
                         </div>
@@ -119,9 +114,8 @@
                     </div>
                 </div>
             </header>
-
+            <!-- PRINCIPAL -->
             <div class="content">
-                <!-- ==================== DASHBOARD PAGE ==================== -->
                 <div class="page" id="dashboard-page" th:classappend="${page == 'dashboard' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Dashboard</h3>
@@ -154,8 +148,6 @@
                         <div class="stat-card">
                             <div class="stat-icon red"><i class="fas fa-comments"></i></div>
                             <div class="stat-info">
-                                <!-- ¡¡LÍNEA CORREGIDA!! -->
-                                <!-- Usamos th:text para mostrar el valor que viene del backend -->
                                 <h4 id="new-messages" th:text="${mensajesNuevos ?: 0}">0</h4>
                                 <p>Mensajes Nuevos</p>
                             </div>
@@ -173,7 +165,6 @@
                         </div>
                     </div>
 
-                    <!-- Dentro de la página del Dashboard en Dashboard/index.html -->
 
                     <div class="card">
                         <div class="card-header">
@@ -210,7 +201,6 @@
                                             <button class="action-btn view" th:attr="data-id=${pedido.id}">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <!-- ¡¡AQUÍ ESTÁ LA CORRECCIÓN!! -->
                                             <button class="action-btn status-update" th:attr="data-id=${pedido.id}">
                                                 <i class="fas fa-sync-alt"></i>
                                             </button>
@@ -225,7 +215,32 @@
                     </div>
                 </div>
 
-                <!-- ==================== PRODUCTS PAGE ==================== -->
+                <!-- GESTION DE CATEGORIAS -->
+                <div class="page" id="categories-page" th:classappend="${page == 'categories' ? 'active' : ''}">
+                    <div class="page-title">
+                        <h3>Gestión de Categorías</h3>
+                        <button class="btn btn-primary" id="add-category-btn">Nueva Categoría</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Lista de Categorías</h4>
+                        </div>
+                        <div class="card-body">
+                            <table id="categories-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody><!-- JS llenará esto --></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- GESTION DE PRODUCTOS -->
                 <div class="page" id="products-page" th:classappend="${page == 'products' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Gestión de Productos</h3>
@@ -259,7 +274,7 @@
                     </div>
                 </div>
 
-                <!-- ==================== PROMOTIONS PAGE ==================== -->
+                <!-- GESTION DE PROMOCIONES -->
                 <div class="page" id="promotions-page" th:classappend="${page == 'promotions' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Gestión de Promociones</h3>
@@ -291,7 +306,7 @@
                     </div>
                 </div>
 
-                <!-- ==================== ORDERS PAGE ==================== -->
+                <!-- GESTION DE PEDIDOS -->
                 <div class="page" id="orders-page" th:classappend="${page == 'orders' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Gestión de Pedidos</h3>
@@ -329,7 +344,7 @@
                     </div>
                 </div>
 
-                <!-- ==================== CUSTOMERS PAGE ==================== -->
+                <!-- CLIENTES REGISTRADOS -->
                 <div class="page" id="customers-page" th:classappend="${page == 'customers' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Clientes Registrados</h3>
@@ -356,7 +371,7 @@
                     </div>
                 </div>
 
-                <!-- ==================== MESSAGES PAGE ==================== -->
+                <!-- MENSAJES DE CLIENTES -->
                 <div class="page" id="messages-page" th:classappend="${page == 'messages' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Mensajes de Clientes</h3>
@@ -384,7 +399,7 @@
                     </div>
                 </div>
 
-                <!-- ==================== USERS PAGE ==================== -->
+                <!-- ADMINISTRACION DE USUARIOS -->
                 <div class="page" id="users-page" th:classappend="${page == 'users' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Administración de Usuarios</h3>
@@ -413,9 +428,8 @@
                     </div>
                 </div>
 
-                <!-- ==================== ANALYTICS PAGE ==================== -->
+                <!-- ANALISIS DE DATOS -->
                 <div class="page" id="analytics-page" th:classappend="${page == 'analytics' ? 'active' : ''}">
-                    <!-- Contenido completo de la página de analíticas -->
                     <div class="page-title">
                         <h3>Análisis de Datos</h3>
                     </div>
@@ -429,18 +443,16 @@
                             <div class="chart-box"><canvas id="revenue-by-hour-chart"></canvas></div>
                         </div>
                     </div>
-                    
+
                 </div>
 
-                <!-- ==================== REPORTS PAGE ==================== -->
+                <!-- GENERACION DE REPORTES -->
                 <div class="page" id="reports-page" th:classappend="${page == 'reports' ? 'active' : ''}">
                     <div class="page-title">
                         <h3>Generación de Reportes</h3>
                     </div>
 
-                    <!-- Cuadrícula para las tarjetas de reporte -->
                     <div class="report-card-grid">
-                        <!-- Tarjeta 1: Reporte de Ventas -->
                         <div class="report-card">
                             <div class="report-card-icon">
                                 <i class="fas fa-shopping-cart"></i>
@@ -453,7 +465,6 @@
                             </button>
                         </div>
 
-                        <!-- Tarjeta 2: Reporte de Productos -->
                         <div class="report-card">
                             <div class="report-card-icon">
                                 <i class="fas fa-coffee"></i>
@@ -466,7 +477,6 @@
                             </button>
                         </div>
 
-                        <!-- Tarjeta 3: Reporte de Clientes -->
                         <div class="report-card">
                             <div class="report-card-icon">
                                 <i class="fas fa-users"></i>
@@ -480,15 +490,10 @@
                         </div>
                     </div>
                 </div>
-
-
-               
-
                 <div id="modal-container"></div>
             </div>
         </main>
     </div>
-
 
     <script th:src="@{/assets/dashboard/js/app.js}"></script>
     <script th:src="@{/assets/dashboard/js/products.js}"></script>
@@ -499,6 +504,7 @@
     <script th:src="@{/assets/dashboard/js/customers.js}"></script>
     <script th:src="@{/assets/dashboard/js/analytics.js}"></script>
     <script th:src="@{/assets/dashboard/js/reports.js}"></script>
+    <script th:src="@{/assets/dashboard/js/categories.js}"></script>
 
 </body>
 

@@ -23,39 +23,29 @@ public class SecurityConfig {
         http
             
             
-            // --- REGLAS DE AUTORIZACIÓN DE RUTAS ---
             .authorizeHttpRequests(auth -> auth
-                // REGLA 1: Recursos estáticos siempre públicos
                 .requestMatchers("/assets/**", "/Vista/**", "/img/**").permitAll()
 
-                // REGLA 2: Páginas públicas del cliente
                 .requestMatchers("/", "/inicio", "/sobrenosotros", "/carta", "/login", "/registro").permitAll()
                 
-                // REGLA 3: APIs públicas del cliente
                 .requestMatchers("/api/client/products/**", "/api/client/promotions/**").permitAll()
 
-                // REGLA 4: Secciones del Dashboard solo para ADMIN
                 .requestMatchers("/dashboard/**", "/api/dashboard/**").hasRole("ADMIN")
                 
-                // REGLA 5: Secciones que requieren que el usuario esté logueado (cualquier rol)
                 .requestMatchers(
                         "/carrito",
                         "/mi-cuenta/**",
                         "/api/client/orders/**",
                         "/api/client/account/**",
                         "/api/client/messages"
-                        // La API de mensajes ahora es manejada por CSRF, pero la dejamos aquí por claridad
-                        // si en el futuro se cambia a solo usuarios logueados.
                 ).authenticated()
                 
-                // REGLA FINAL: Cualquier otra URL no definida, por seguridad, requerirá autenticación.
                 .anyRequest().authenticated() 
             )
-            // --- CONFIGURACIÓN DE LOGIN Y LOGOUT ---
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/inicio", true) // Simplificado, el modal lo podemos manejar con JS
+                .defaultSuccessUrl("/inicio", true) 
                 .permitAll()
             )
             .logout(logout -> logout

@@ -1,5 +1,3 @@
-// login.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".contenedor");
     const registerBtn = document.querySelector(".register-btn");

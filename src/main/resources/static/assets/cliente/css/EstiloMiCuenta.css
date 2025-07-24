@@ -119,3 +119,62 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+
+@media (max-width: 992px) {
+    .account-container {
+        padding-top: 100px; 
+    }
+}
+
+
+@media (max-width: 768px) {
+    .account-container h1 {
+        font-size: 2rem; 
+    }
+
+    .tabs {
+        display: flex;
+        overflow-x: auto;
+        -ms-overflow-style: none; 
+        scrollbar-width: none;  
+    }
+    .tabs::-webkit-scrollbar {
+        display: none; 
+    }
+
+    .tab-link {
+        white-space: nowrap; 
+        flex-shrink: 0;
+        padding: 12px 15px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr; 
+    }
+}
+
+@media (max-width: 480px) {
+    .account-container {
+        padding: 90px 15px 20px; 
+    }
+
+    .account-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .tab-link {
+        font-size: 0.9rem; 
+    }
+
+    .pedido-item, .mensaje-item {
+        padding: 12px;
+    }
+
+    .respuesta-admin {
+        padding: 8px;
+    }
+
+    .btn-save {
+        width: 100%; 
+    }
+}

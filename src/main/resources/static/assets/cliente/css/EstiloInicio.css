@@ -166,7 +166,7 @@ input [id="3"]:checked~.pagination .pagination-item[for="3"] {
   margin-top: 80px;
   position: relative;
   width: 100%;
-  height: 60vh;
+  height: 80vh;
   overflow: hidden;
   background-color: #F5E2C8;
 }
@@ -208,7 +208,6 @@ input [id="3"]:checked~.pagination .pagination-item[for="3"] {
 .menu .menu-list a {
   text-decoration: none;
   color: white;
-  /* Texto blanco */
   font-size: 16px;
   font-weight: bold;
   width: 100%;
@@ -549,16 +548,15 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem;
-  background: #F5E2C8;
+  padding: 2rem 4rem;
   color: black;
-  margin-left: 40px;
 }
 
-.text-servicios h1 {
+.text h1, .text-servicios h1 {
+  font-family: 'Poppins', sans-serif;
   font-size: 3rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  width: 80%;
 }
 
 .text-servicios p {
@@ -592,7 +590,14 @@ html {
   margin-left: -10px;
   border-radius: 10vh;
 }
-
+.image-uno, .image-combos, .image-promos, .image-services {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 .image-combos img {
   width: auto;
   height: 90%;
@@ -718,29 +723,29 @@ html {
 
   .image-uno img {
     width: auto;
-    height: 35%;
-    margin: 0 auto 180px;
+    height: 50%;
+    margin: 0 auto 200px;
     border-radius: 15px;
   }
 
   .image-promos img {
     width: auto;
-    height: 30%;
-    margin: 0 auto 30px;
+    height: 57%;
+    margin: 0 auto 150px;
     border-radius: 15px;
   }
 
   .image-services img {
     width: auto;
-    height: 25%;
-    margin: 0 auto 30px;
+    height: 50%;
+    margin: 0 auto 150px;
     border-radius: 15px;
   }
 
   .image-combos img {
     width: auto;
-    height: 28%;
-    margin: 0 auto 30px;
+    height: 55%;
+    margin: 0 auto 130px;
     border-radius: 15px;
   }
 

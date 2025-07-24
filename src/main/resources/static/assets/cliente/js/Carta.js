@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function setupFilterButtons() {
-    const filterButtons = document.querySelectorAll(".btn-item");
+    const filterButtons = document.querySelectorAll(".filter-btn");
     filterButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
             filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -24,12 +24,9 @@ function setupFilterButtons() {
  */
 function fetchAndDisplayProducts(categoriaId) {
     const container = document.getElementById("productos-container");
-    if (!container) {
-        console.error("El contenedor de productos no fue encontrado.");
-        return;
-    }
+    if (!container) return;
 
-    container.innerHTML = '<p style="text-align:center; color: #333;">Cargando productos...</p>';
+    container.innerHTML = '<p style="text-align:center;">Cargando productos...</p>';
 
     const url = (categoriaId === 'todos')
         ? '/api/client/products'
@@ -37,37 +34,31 @@ function fetchAndDisplayProducts(categoriaId) {
 
     fetch(url)
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al cargar los productos desde el servidor.');
-            }
+            if (!response.ok) throw new Error('Error al cargar los productos.');
             return response.json();
         })
         .then(productos => {
             container.innerHTML = '';
-
             if (productos.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color: #333;">No hay productos disponibles en esta categoría.</p>';
+                container.innerHTML = '<p style="text-align:center;">No hay productos disponibles en esta categoría.</p>';
                 return;
             }
-
             productos.forEach(producto => {
                 const productoHTML = `
-                    <div class="menu-items col-lg-6 col-sm-12">
-                        <img src="${producto.imagenUrl || '/Vista/Imagenes/img-carta/default-product.png'}" alt="${producto.nombre}" class="photo" />
-                        <div class="menu-info">
-                            <div class="menu-title">
-                                <h4>${producto.nombre}</h4>
-                            </div>
-                            <div class="menu-text">
-                                ${producto.descripcion}
-                            </div>
-                            <div class="price-buy-container">
-                                <h4 class="price">S/ ${producto.precio.toFixed(2)}</h4>
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="${producto.imagenUrl || '/Vista/Imagenes/img-carta/default-product.png'}" alt="${producto.nombre}" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${producto.nombre}</h3>
+                            <p class="product-desc">${producto.descripcion}</p>
+                            <div class="product-footer">
+                                <span class="product-price">S/ ${producto.precio.toFixed(2)}</span>
                                 <button class="cart-button" data-product-id="${producto.id}">
                                     <span class="add-to-cart">Comprar</span>
-                                    <span class="added">Comprado</span>
-                                    <i class="fa-solid fa-mug-saucer"></i>
-                                    <i class="fa-solid fa-cube"></i>
+                                    <span class="added">Añadido</span>
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-box"></i>
                                 </button>
                             </div>
                         </div>
@@ -79,8 +70,8 @@ function fetchAndDisplayProducts(categoriaId) {
             attachAddToCartListeners();
         })
         .catch(error => {
-            console.error('Error al obtener productos:', error);
-            container.innerHTML = '<p style="text-align:center; color: #cc0000;">Ocurrió un error al cargar los productos.</p>';
+            console.error('Error al cargar productos:', error);
+            container.innerHTML = '<p style="text-align:center;">Ocurrió un error al cargar los productos.</p>';
         });
 }
 
